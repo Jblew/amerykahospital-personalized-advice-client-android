@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1065789277110",
+    "firebase_url": "https://amerykahospital-advice-68385.firebaseio.com",
+    "project_id": "amerykahospital-advice-68385",
+    "storage_bucket": "amerykahospital-advice-68385.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1065789277110:android:38d5d249dc70745d",
+        "android_client_info": {
+          "package_name": "pl.jblew.ahpaaclient"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1065789277110-rcjfnh1skep2knspdndspgqkejir4dml.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6d3yGJUbfGJthbk2NwzqFTe-oB1dyPXo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1065789277110-rcjfnh1skep2knspdndspgqkejir4dml.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

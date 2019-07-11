@@ -3,29 +3,36 @@ package pl.jblew.ahpaaclient.ui.advicelist;
 import android.view.View;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.text.SimpleDateFormat;
+
 import pl.jblew.ahpaaclient.R;
 import pl.jblew.ahpaaclient.data.model.AdviceEntity;
 
 public class AdviceViewHolder extends RecyclerView.ViewHolder {
-  public final View mView;
-  public final TextView mIdView;
-  public final TextView mContentView;
-  public AdviceEntity mItem;
+  private final View mView;
+  private final TextView doctorText;
+  private final TextView dateText;
+  private final TextView adviceText;
+
+  public AdviceEntity advice;
 
   public AdviceViewHolder(View view) {
     super(view);
     mView = view;
-    mIdView = (TextView) view.findViewById(R.id.item_number);
-    mContentView = (TextView) view.findViewById(R.id.content);
+    doctorText = (TextView) view.findViewById(R.id.doctor_text);
+    dateText = (TextView) view.findViewById(R.id.date_text);
+    adviceText = (TextView) view.findViewById(R.id.advice_text);
   }
 
   @Override
   public String toString() {
-    return super.toString() + " '" + mContentView.getText() + "'";
+    return super.toString() + " '" + advice.advice + "'";
   }
 
   public void bindTo(AdviceEntity item) {
-    mIdView.setText(item.id);
-    mContentView.setText(item.advice);
+    doctorText.setText(item.medicalprofessionalName);
+    dateText.setText(item.dateISO);
+    adviceText.setText(item.advice);
   }
 }

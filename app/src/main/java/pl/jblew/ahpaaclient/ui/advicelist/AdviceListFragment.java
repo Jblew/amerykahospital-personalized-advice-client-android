@@ -19,12 +19,6 @@ import pl.jblew.ahpaaclient.data.Resource;
 import pl.jblew.ahpaaclient.data.model.AdviceEntity;
 import pl.jblew.ahpaaclient.viewmodel.AdviceListViewModel;
 
-/**
- * A fragment representing a list of Items.
- *
- * <p>Activities containing this fragment MUST implement the {@link
- * OnListFragmentInteractionListener} interface.
- */
 public class AdviceListFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
   private static String TAG = "AdviceListFragment";
 

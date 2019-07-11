@@ -8,7 +8,7 @@ import dagger.Module;
 import dagger.multibindings.IntoMap;
 import pl.jblew.ahpaaclient.di.ViewModelKey;
 import pl.jblew.ahpaaclient.factory.ViewModelFactory;
-import pl.jblew.ahpaaclient.ui.advicelist.AdviceListViewModel;
+import pl.jblew.ahpaaclient.viewmodel.AdviceListViewModel;
 
 @Module
 public abstract class ViewModelModule {

@@ -1,4 +1,4 @@
-package pl.jblew.ahpaaclient.ui.advicelist;
+package pl.jblew.ahpaaclient.viewmodel;
 
 import android.util.Log;
 

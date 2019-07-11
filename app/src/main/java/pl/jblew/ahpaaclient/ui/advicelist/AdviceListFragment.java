@@ -5,7 +5,6 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -19,13 +18,11 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 import dagger.android.support.AndroidSupportInjection;
 import pl.jblew.ahpaaclient.R;
 import pl.jblew.ahpaaclient.data.Resource;
 import pl.jblew.ahpaaclient.data.model.AdviceEntity;
-import pl.jblew.ahpaaclient.factory.ViewModelFactory;
+import pl.jblew.ahpaaclient.viewmodel.AdviceListViewModel;
 
 /**
  * A fragment representing a list of Items.

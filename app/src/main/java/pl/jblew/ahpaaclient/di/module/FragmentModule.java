@@ -6,6 +6,6 @@ import pl.jblew.ahpaaclient.ui.advicelist.AdviceListFragment;
 
 @Module
 public abstract class FragmentModule {
-	@ContributesAndroidInjector
-	abstract AdviceListFragment contributeAdviceListFragment();
+  @ContributesAndroidInjector
+  abstract AdviceListFragment contributeAdviceListFragment();
 }

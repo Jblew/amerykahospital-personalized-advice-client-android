@@ -60,4 +60,12 @@ dependencies {
 
 }
 
+apply plugin: "com.diffplug.gradle.spotless"
+spotless {
+    java {
+        target '**/*.java'
+        googleJavaFormat()
+    }
+}
+
 apply plugin: 'com.google.gms.google-services'

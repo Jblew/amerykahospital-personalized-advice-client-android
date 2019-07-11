@@ -5,13 +5,19 @@ import javax.inject.Singleton;
 import dagger.Component;
 import dagger.android.support.AndroidSupportInjectionModule;
 import pl.jblew.ahpaaclient.AppController;
-import pl.jblew.ahpaaclient.di.module.MainActivityModule;
+import pl.jblew.ahpaaclient.di.module.ActivityModule;
 import dagger.BindsInstance;
+import pl.jblew.ahpaaclient.di.module.FragmentModule;
+import pl.jblew.ahpaaclient.di.module.ViewModelModule;
+
 import android.app.Application;
 
 @Component(modules = {
-        MainActivityModule.class,
-        AndroidSupportInjectionModule.class})
+        ActivityModule.class,
+        AndroidSupportInjectionModule.class,
+        ViewModelModule.class,
+        FragmentModule.class
+})
 @Singleton
 public interface AppComponent {
 

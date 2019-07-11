@@ -1,4 +1,4 @@
-package pl.jblew.ahpaaclient;
+package pl.jblew.ahpaaclient.ui.activity;
 
 import android.os.Bundle;
 
@@ -18,13 +18,30 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
 
 import android.view.Menu;
 
+import javax.inject.Inject;
+
 import dagger.android.AndroidInjection;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.support.HasSupportFragmentInjector;
+import pl.jblew.ahpaaclient.R;
+import pl.jblew.ahpaaclient.data.model.AdviceEntity;
+import pl.jblew.ahpaaclient.ui.advicelist.AdviceListFragment;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, HasSupportFragmentInjector,
+        AdviceListFragment.OnListFragmentInteractionListener {
+
+    @Inject
+    DispatchingAndroidInjector<Fragment> dispatchingAndroidInjector;
+
+    @Override
+    public DispatchingAndroidInjector<Fragment> supportFragmentInjector() {
+        return dispatchingAndroidInjector;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,5 +122,10 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onListFragmentInteraction(AdviceEntity item) {
+
     }
 }

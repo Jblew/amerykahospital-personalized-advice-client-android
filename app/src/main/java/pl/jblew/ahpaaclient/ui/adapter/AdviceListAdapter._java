@@ -1,0 +1,79 @@
+package pl.jblew.ahpaaclient.ui.adapter;
+
+import android.app.Activity;
+import android.util.DisplayMetrics;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
+
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import pl.jblew.ahpaaclient.data.model.AdviceEntity;
+
+public class AdviceListAdapter extends RecyclerView.Adapter<AdviceListAdapter.CustomViewHolder> {
+
+	private Activity activity;
+	private List<AdviceEntity> advices;
+
+	public AdviceListAdapter(Activity activity) {
+		this.activity = activity;
+		this.advices = new ArrayList<>();
+	}
+
+	@NonNull
+	@Override
+	public AdviceListAdapter.CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+		LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
+		AdviceListItemBinding itemBinding = AdviceListItemBinding.inflate(layoutInflater, parent,
+				false);
+		CustomViewHolder viewHolder = new CustomViewHolder(itemBinding);
+		return viewHolder;
+	}
+
+	public void setItems(List<AdviceEntity> advices) {
+		int startPosition = this.advices.size();
+		this.advices.addAll(advices);
+		notifyItemRangeChanged(startPosition, advices.size());
+	}
+
+	@Override
+	public int getItemCount() {
+		return advices.size();
+	}
+
+	public AdviceEntity getItem(int position) {
+		return advices.get(position);
+	}
+
+	@Override
+	public void onBindViewHolder(@NonNull AdviceListAdapter.CustomViewHolder holder, int position) {
+		holder.bindTo(getItem(position));
+	}
+
+	protected class CustomViewHolder extends RecyclerView.ViewHolder {
+
+		private AdviceListItemBinding binding;
+
+		public CustomViewHolder(AdviceListItemBinding binding) {
+			super(binding.getRoot());
+			this.binding = binding;
+
+			DisplayMetrics displayMetrics = new DisplayMetrics();
+			activity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+			int width = displayMetrics.widthPixels;
+
+			itemView.setLayoutParams(new RecyclerView.LayoutParams(new Float(width * 0.85f).intValue(),
+					RecyclerView.LayoutParams.WRAP_CONTENT));
+		}
+
+		/*public void bindTo(AdviceEntity movie) {
+			Picasso.get().load(movie.getPosterPath())
+					.placeholder(R.drawable.ic_placeholder)
+					.into(binding.image);
+		}*/
+	}
+}

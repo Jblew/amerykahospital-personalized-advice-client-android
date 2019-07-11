@@ -1,5 +1,7 @@
 package pl.jblew.ahpaaclient.ui.advicelist;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -18,6 +20,7 @@ import pl.jblew.ahpaaclient.data.model.AdviceEntity;
 import pl.jblew.ahpaaclient.data.repository.AdviceRepository;
 
 public class AdviceListViewModel extends ViewModel {
+	private static String TAG = "AdviceListViewModel";
 	@Inject
 	public AdviceRepository adviceRepository;
 
@@ -38,18 +41,27 @@ public class AdviceListViewModel extends ViewModel {
 	public void reloadAdvices() {
 		advices.postValue(Resource.loading(this.getPresentListOrEmptyList()));
 
+		Log.i(TAG, "Advice reload started");
 		FirebaseFirestore db = FirebaseFirestore.getInstance();
 		db.collection(BackendConfig.FIRESTORE_COLLECTION_ADVICES).get()
 				.addOnCanceledListener(
-					() -> advices.postValue(Resource.success(this.getPresentListOrEmptyList()))
+					() -> {
+						advices.postValue(Resource.success(this.getPresentListOrEmptyList()));
+						Log.i(TAG, "Advice loading calcelled");
+					}
 				)
 				.addOnFailureListener(
-					(Exception e) -> advices.postValue(
+					(Exception e) -> {
+						advices.postValue(
 						Resource.error("Could not fetch data: " + e.getMessage(),
-								this.getPresentListOrEmptyList()))
+								this.getPresentListOrEmptyList()));
+						Log.e(TAG, "Advice loading error: " + e, e);
+					}
 				).addOnSuccessListener(
-					(qs) -> advices
-						.postValue(Resource.success(this.mapQuerySnapshotToAdviceList(qs)))
+					(qs) -> {
+						advices.postValue(Resource.success(this.mapQuerySnapshotToAdviceList(qs)));
+						Log.i(TAG, "Advice loading completed");
+					}
 				);
 	}
 

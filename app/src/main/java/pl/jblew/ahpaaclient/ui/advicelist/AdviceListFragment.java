@@ -8,15 +8,22 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.google.android.material.snackbar.Snackbar;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
 import dagger.android.support.AndroidSupportInjection;
 import pl.jblew.ahpaaclient.R;
+import pl.jblew.ahpaaclient.data.Resource;
 import pl.jblew.ahpaaclient.data.model.AdviceEntity;
 import pl.jblew.ahpaaclient.factory.ViewModelFactory;
 
@@ -26,15 +33,14 @@ import pl.jblew.ahpaaclient.factory.ViewModelFactory;
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
-public class AdviceListFragment extends Fragment {
-	private OnListFragmentInteractionListener mListener;
+public class AdviceListFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+	private static String TAG = "AdviceListFragment";
 
+	private OnListFragmentInteractionListener mListener;
 	private AdviceListViewModel adviceListViewModel;
 
-	/**
-	 * Mandatory empty constructor for the fragment manager to instantiate the fragment (e.g. upon
-	 * screen orientation changes).
-	 */
+	private SwipeRefreshLayout swipeLayout;
+
 	public AdviceListFragment() {
 	}
 
@@ -49,18 +55,36 @@ public class AdviceListFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_advice_list, container, false);
+		Context context = view.getContext();
+		swipeLayout = view.findViewById(R.id.advicelistswiperefresh);
 
-		// Set the adapter
-		if (view instanceof RecyclerView) {
-			Context context = view.getContext();
-			RecyclerView recyclerView = (RecyclerView) view;
-			recyclerView.setLayoutManager(new LinearLayoutManager(context));
+		RecyclerView rv = view.findViewById(R.id.advicesrecyclerview);
+		rv.setLayoutManager(new LinearLayoutManager(context));
 
-			AdviceListAdapter adapter = new AdviceListAdapter();
-			adviceListViewModel.getAdvices().observe(this, listRes -> adapter.submitList(listRes.data));
-			recyclerView.setAdapter(adapter);
-		}
+		AdviceListAdapter adapter = new AdviceListAdapter();
+		adviceListViewModel.getAdvices().observe(this, listRes -> onAdviceListChanged(view, adapter,
+				listRes));
+		rv.setAdapter(adapter);
+
+
+		swipeLayout.setOnRefreshListener(() -> onRefresh());
+
 		return view;
+	}
+
+	private void onAdviceListChanged(View view, AdviceListAdapter adapter,
+									 Resource<List<AdviceEntity>> listRes) {
+		adapter.submitList(listRes.data);
+		if (listRes.message != null && listRes.message.length() > 0) {
+			Snackbar.make(view, "Error: " + listRes.message, Snackbar.LENGTH_LONG)
+					.show();
+		}
+		setRefreshingIndicatorVisibility(view, listRes.isLoading());
+		Log.i(TAG, "onAdviceListChanged: status=" + listRes.status.name());
+	}
+
+	private void setRefreshingIndicatorVisibility(View view, boolean loading) {
+		swipeLayout.setRefreshing(loading);
 	}
 
 
@@ -79,6 +103,11 @@ public class AdviceListFragment extends Fragment {
 	public void onDetach() {
 		super.onDetach();
 		mListener = null;
+	}
+
+	@Override
+	public void onRefresh() {
+		adviceListViewModel.reloadAdvices();
 	}
 
 	/**

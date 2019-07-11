@@ -44,6 +44,10 @@ public class Resource<T> {
         return status != Status.LOADING;
     }
 
+    public boolean isError() {
+        return status == Status.ERROR;
+    }
+
     public enum Status {
         LOADING, SUCCESS, ERROR
     }

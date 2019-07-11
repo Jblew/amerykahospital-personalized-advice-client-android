@@ -76,7 +76,7 @@ public class AdviceListFragment extends Fragment implements SwipeRefreshLayout.O
 									 Resource<List<AdviceEntity>> listRes) {
 		adapter.submitList(listRes.data);
 		if (listRes.message != null && listRes.message.length() > 0) {
-			Snackbar.make(view, "Error: " + listRes.message, Snackbar.LENGTH_LONG)
+			Snackbar.make(view, listRes.message, Snackbar.LENGTH_LONG)
 					.show();
 		}
 		setRefreshingIndicatorVisibility(view, listRes.isLoading());

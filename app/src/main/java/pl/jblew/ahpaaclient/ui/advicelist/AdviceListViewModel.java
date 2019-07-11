@@ -59,7 +59,12 @@ public class AdviceListViewModel extends ViewModel {
 					}
 				).addOnSuccessListener(
 					(qs) -> {
-						advices.postValue(Resource.success(this.mapQuerySnapshotToAdviceList(qs)));
+						Resource successRes = Resource.success(
+								this.mapQuerySnapshotToAdviceList(qs),
+								qs.getMetadata().isFromCache() ? "This data was loaded from " +
+										"offline cache" : null
+						);
+						advices.postValue(successRes);
 						Log.i(TAG, "Advice loading completed");
 					}
 				);

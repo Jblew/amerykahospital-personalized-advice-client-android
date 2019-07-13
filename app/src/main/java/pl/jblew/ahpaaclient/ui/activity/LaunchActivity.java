@@ -92,56 +92,57 @@ public class LaunchActivity extends AppCompatActivity {
       goToLoginActivity();
     }
   }
-  
+
   private void showLoggedInUi(FirebaseUser user) {
     msgText.setText("Zalogowany jako " + user.getDisplayName());
     loginBtn.setVisibility(View.GONE);
   }
-  
+
   private void showNotLoggedInUi() {
     msgText.setText(R.string.not_logged_in_msg);
     loginBtn.setVisibility(View.VISIBLE);
   }
-  
+
   private void showMsg(int stringId) {
     msgText.setText(stringId);
     Snackbar.make(rootLayout, stringId, Snackbar.LENGTH_LONG).show();
-	}
+  }
 
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     Log.i(TAG, "onActivityResult ");
-		super.onActivityResult(requestCode, resultCode, data);
-		// RC_SIGN_IN is the request code you passed into startActivityForResult(...) when starting the sign in flow.
-		if (requestCode == RC_SIGN_IN) {
-			IdpResponse response = IdpResponse.fromResultIntent(data);
+    super.onActivityResult(requestCode, resultCode, data);
+    // RC_SIGN_IN is the request code you passed into startActivityForResult(...) when starting the
+    // sign in flow.
+    if (requestCode == RC_SIGN_IN) {
+      IdpResponse response = IdpResponse.fromResultIntent(data);
 
-			// Successfully signed in
-			if (resultCode == RESULT_OK) {
-			  FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+      // Successfully signed in
+      if (resultCode == RESULT_OK) {
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         showLoggedInUi(currentUser);
-				goToMainActivity(currentUser);
-				finish();
-			} else {
-				showNotLoggedInUi();
+        goToMainActivity(currentUser);
+        finish();
+      } else {
+        showNotLoggedInUi();
 
-				// Sign in failed
-				if (response == null) {
-					// User pressed back button
-					showMsg(R.string.sign_in_cancelled);
-					return;
-				}
+        // Sign in failed
+        if (response == null) {
+          // User pressed back button
+          showMsg(R.string.sign_in_cancelled);
+          return;
+        }
 
-				if (response.getError().getErrorCode() == ErrorCodes.NO_NETWORK) {
-					showMsg(R.string.no_internet_connection);
-					return;
-				}
-        
+        if (response.getError().getErrorCode() == ErrorCodes.NO_NETWORK) {
+          showMsg(R.string.no_internet_connection);
+          return;
+        }
+
         showMsg(R.string.unknown_error);
-				Log.e(TAG, "Sign-in error: ", response.getError());
-			}
-		}
-	}
-  
+        Log.e(TAG, "Sign-in error: ", response.getError());
+      }
+    }
+  }
+
   private void goToMainActivity(FirebaseUser user) {
     startActivity(MainActivity.createSignedInIntent(this, user));
   }

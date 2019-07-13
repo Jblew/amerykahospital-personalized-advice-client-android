@@ -30,15 +30,11 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-import com.firebase.ui.auth.AuthUI;
-import com.firebase.ui.auth.IdpResponse;
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import dagger.android.AndroidInjection;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
-import java.util.Arrays;
 import javax.inject.Inject;
 import pl.jblew.ahpaaclient.R;
 import pl.jblew.ahpaaclient.data.model.AdviceEntity;
@@ -51,7 +47,7 @@ public class MainActivity extends AppCompatActivity
   private static final int RC_SIGN_IN = 9410;
 
   @Inject DispatchingAndroidInjector<Fragment> dispatchingAndroidInjector;
-  
+
   @Override
   public DispatchingAndroidInjector<Fragment> supportFragmentInjector() {
     return dispatchingAndroidInjector;
@@ -123,17 +119,15 @@ public class MainActivity extends AppCompatActivity
     // Handle navigation view item clicks here.
     int id = item.getItemId();
 
-    if (id == R.id.nav_home) {
-      // Handle the camera action
-    } else if (id == R.id.nav_gallery) {
+    if (id == R.id.nav_advices) {
 
-    } else if (id == R.id.nav_slideshow) {
+    } else if (id == R.id.nav_import_advice) {
 
-    } else if (id == R.id.nav_tools) {
+    } else if (id == R.id.nav_logout) {
 
-    } else if (id == R.id.nav_share) {
+    } else if (id == R.id.nav_about_hospital) {
 
-    } else if (id == R.id.nav_send) {
+    } else if (id == R.id.nav_about_app) {
 
     }
 
@@ -144,7 +138,7 @@ public class MainActivity extends AppCompatActivity
 
   @Override
   public void onListFragmentInteraction(AdviceEntity item) {}
-  
+
   public static Intent createSignedInIntent(LaunchActivity launchActivity, FirebaseUser user) {
     Intent intent = new Intent(launchActivity, MainActivity.class);
     return intent;

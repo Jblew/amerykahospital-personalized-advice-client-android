@@ -59,7 +59,7 @@
         app:layout_constraintWidth_percent="0.5" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/ac_launch_msg_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/splash_hospital_default_msg"
@@ -73,5 +73,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/ac_launch_guideline_horizontal_msg"
         />
+
+    <Button
+        android:id="@+id/ac_launch_login_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:text="@string/log_in_btn"
+        android:textAlignment="center"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ac_launch_msg_text" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

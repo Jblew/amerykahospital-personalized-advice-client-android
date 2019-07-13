@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/advicelistswiperefresh"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:name="pl.jblew.ahpaaclient.ui.fragment.AdviceListFragment"
-    tools:context=".ui.advicelist.AdviceListFragment"
-    >
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/advicesrecyclerview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        app:layoutManager="LinearLayoutManager"
-        tools:listitem="@layout/fragment_advice" />
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/advicelistswiperefresh"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:name="pl.jblew.ahpaaclient.ui.fragment.AdviceListFragment"
+	tools:context=".ui.advicelist.AdviceListFragment">
+	<androidx.recyclerview.widget.RecyclerView
+		android:id="@+id/advicesrecyclerview"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent" android:layout_marginLeft="16dp"
+		android:layout_marginRight="16dp"
+		app:layoutManager="LinearLayoutManager"
+		tools:listitem="@layout/fragment_advice" />
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

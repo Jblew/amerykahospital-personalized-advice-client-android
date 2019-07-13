@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!-- The android:opacity=”opaque” line — this is critical in preventing a flash of black as your theme transitions. -->
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android" android:opacity="opaque">
+<!-- The android:opacity=”opaque” line — this is critical in preventing a 
+	flash of black as your theme transitions. -->
+<layer-list
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:opacity="opaque">
 
-    <item android:drawable="@color/colorAmerykaGreen"/>
+	<item android:drawable="@color/colorAmerykaGreen" />
 
-    <!-- Your product logo - 144dp color version of your app icon -->
-    <item>
+	<!-- Your product logo - 144dp color version of your app icon -->
+	<item>
 
-        <bitmap
-            android:src="@drawable/ic_logo_ameryka_splash"
-            android:gravity="center"/>
+		<bitmap android:src="@drawable/ic_logo_ameryka_splash"
+			android:gravity="center" />
 
-    </item>
+	</item>
 
 </layer-list>

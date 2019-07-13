@@ -66,6 +66,14 @@ spotless {
     java {
         target '**/*.java'
         googleJavaFormat()
+        licenseHeaderFile('../misc/license-header-java.template.txt').yearSeparator(', ')
+    }
+    format 'xml', {
+        target fileTree('.') {
+            include '**/*.xml', '**/*.xsd'
+            exclude '**/build/**'
+        }
+        eclipseWtp('xml').configFile '../misc/org.eclipse.wst.xml.core.prefs'
     }
 }
 

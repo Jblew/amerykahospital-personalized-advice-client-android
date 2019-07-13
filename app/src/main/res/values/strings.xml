@@ -13,7 +13,11 @@
 	<string name="menu_share">Share</string>
 	<string name="menu_send">Send</string>
 	<string name="not_logged_in_msg">Proszę się zalogować</string>
-	<string name="splash_hospital_name">Wojewódzki Szpital Rehabilitacyjny dla Dzieci w Ameryce</string>
+	<string name="splash_hospital_name">Wojewódzki Szpital Rehabilitacyjny dla Dzieci w
+		Ameryce</string>
 	<string name="splash_hospital_default_msg">Porady medyczne od naszych specjalistów</string>
 	<string name="log_in_btn">Zaloguj się</string>
+	<string name="sign_in_cancelled">Błąd: anulowano logowanie</string>
+	<string name="no_internet_connection">Błąd: brak połączenia z internetem</string>
+    <string name="unknown_error">Błąd: nieznany błąd</string>
 </resources>

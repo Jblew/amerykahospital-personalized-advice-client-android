@@ -28,15 +28,13 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
-import androidx.databinding.DataBindingUtil;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import dagger.android.AndroidInjection;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
@@ -53,7 +51,7 @@ public class MainActivity extends AppCompatActivity
   private static final int RC_SIGN_IN = 9410;
 
   @Inject DispatchingAndroidInjector<Fragment> dispatchingAndroidInjector;
-
+  
   @Override
   public DispatchingAndroidInjector<Fragment> supportFragmentInjector() {
     return dispatchingAndroidInjector;
@@ -67,28 +65,6 @@ public class MainActivity extends AppCompatActivity
     setContentView(R.layout.activity_main);
 
     drawView();
-    processAuth();
-
-  }
-
-  private void processAuth() {
-    FirebaseAuth auth = FirebaseAuth.getInstance();
-    // auth.addAuthStateListener();
-    if (auth.getCurrentUser() != null) {
-      // showAdviceList();
-    }
-    else {
-      startActivityForResult(
-          // Get an instance of AuthUI based on the default app
-          AuthUI.getInstance()
-              .createSignInIntentBuilder()
-              .setAvailableProviders(
-                  Arrays.asList(
-                      new AuthUI.IdpConfig.GoogleBuilder().build(),
-                      new AuthUI.IdpConfig.EmailBuilder().build()))
-              .build(),
-          RC_SIGN_IN);
-    }
   }
 
   private void drawView() {
@@ -108,37 +84,6 @@ public class MainActivity extends AppCompatActivity
     toggle.syncState();
     navigationView.setNavigationItemSelectedListener(this);
   }
-
-  /*
-  @Override
-  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-    super.onActivityResult(requestCode, resultCode, data);
-    // RC_SIGN_IN is the request code you passed into startActivityForResult(...) when starting the sign in flow.
-    if (requestCode == RC_SIGN_IN) {
-      IdpResponse response = IdpResponse.fromResultIntent(data);
-
-      // Successfully signed in
-      if (resultCode == RESULT_OK) {
-        startActivity(SignedInActivity.createIntent(this, response));
-        finish();
-      } else {
-        // Sign in failed
-        if (response == null) {
-          // User pressed back button
-          showSnackbar(R.string.sign_in_cancelled);
-          return;
-        }
-
-        if (response.getError().getErrorCode() == ErrorCodes.NO_NETWORK) {
-          showSnackbar(R.string.no_internet_connection);
-          return;
-        }
-
-        showSnackbar(R.string.unknown_error);
-        Log.e(TAG, "Sign-in error: ", response.getError());
-      }
-    }
-  }*/
 
   @Override
   public void onBackPressed() {
@@ -199,4 +144,9 @@ public class MainActivity extends AppCompatActivity
 
   @Override
   public void onListFragmentInteraction(AdviceEntity item) {}
+  
+  public static Intent createSignedInIntent(LaunchActivity launchActivity, FirebaseUser user) {
+    Intent intent = new Intent(launchActivity, MainActivity.class);
+    return intent;
+  }
 }

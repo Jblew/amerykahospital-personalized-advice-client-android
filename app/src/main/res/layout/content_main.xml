@@ -13,7 +13,6 @@
 		android:name="pl.jblew.ahpaaclient.ui.advicelist.AdviceListFragment"
 		android:id="@+id/advicelist_inmainview_fragment"
 		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		/>
+		android:layout_height="match_parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

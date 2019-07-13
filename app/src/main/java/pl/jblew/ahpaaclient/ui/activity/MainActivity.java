@@ -20,22 +20,27 @@
  */
 package pl.jblew.ahpaaclient.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
+import androidx.databinding.DataBindingUtil;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.fragment.app.FragmentManager;
+
+import com.firebase.ui.auth.AuthUI;
+import com.firebase.ui.auth.IdpResponse;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
 import dagger.android.AndroidInjection;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.HasSupportFragmentInjector;
+import java.util.Arrays;
 import javax.inject.Inject;
 import pl.jblew.ahpaaclient.R;
 import pl.jblew.ahpaaclient.data.model.AdviceEntity;
@@ -45,6 +50,7 @@ public class MainActivity extends AppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener,
         HasSupportFragmentInjector,
         AdviceListFragment.OnListFragmentInteractionListener {
+  private static final int RC_SIGN_IN = 9410;
 
   @Inject DispatchingAndroidInjector<Fragment> dispatchingAndroidInjector;
 
@@ -56,21 +62,39 @@ public class MainActivity extends AppCompatActivity
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     AndroidInjection.inject(this);
-    setTheme(R.style.AppTheme);
+    setTheme(R.style.AppTheme); // hide splash
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
+
+    drawView();
+    processAuth();
+
+  }
+
+  private void processAuth() {
+    FirebaseAuth auth = FirebaseAuth.getInstance();
+    // auth.addAuthStateListener();
+    if (auth.getCurrentUser() != null) {
+      // showAdviceList();
+    }
+    else {
+      startActivityForResult(
+          // Get an instance of AuthUI based on the default app
+          AuthUI.getInstance()
+              .createSignInIntentBuilder()
+              .setAvailableProviders(
+                  Arrays.asList(
+                      new AuthUI.IdpConfig.GoogleBuilder().build(),
+                      new AuthUI.IdpConfig.EmailBuilder().build()))
+              .build(),
+          RC_SIGN_IN);
+    }
+  }
+
+  private void drawView() {
     Toolbar toolbar = findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
-    FloatingActionButton fab = findViewById(R.id.fab);
-    fab.setOnClickListener(
-        new View.OnClickListener() {
-          @Override
-          public void onClick(View view) {
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null)
-                .show();
-          }
-        });
+
     DrawerLayout drawer = findViewById(R.id.drawer_layout);
     NavigationView navigationView = findViewById(R.id.nav_view);
     ActionBarDrawerToggle toggle =
@@ -84,6 +108,37 @@ public class MainActivity extends AppCompatActivity
     toggle.syncState();
     navigationView.setNavigationItemSelectedListener(this);
   }
+
+  /*
+  @Override
+  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+    // RC_SIGN_IN is the request code you passed into startActivityForResult(...) when starting the sign in flow.
+    if (requestCode == RC_SIGN_IN) {
+      IdpResponse response = IdpResponse.fromResultIntent(data);
+
+      // Successfully signed in
+      if (resultCode == RESULT_OK) {
+        startActivity(SignedInActivity.createIntent(this, response));
+        finish();
+      } else {
+        // Sign in failed
+        if (response == null) {
+          // User pressed back button
+          showSnackbar(R.string.sign_in_cancelled);
+          return;
+        }
+
+        if (response.getError().getErrorCode() == ErrorCodes.NO_NETWORK) {
+          showSnackbar(R.string.no_internet_connection);
+          return;
+        }
+
+        showSnackbar(R.string.unknown_error);
+        Log.e(TAG, "Sign-in error: ", response.getError());
+      }
+    }
+  }*/
 
   @Override
   public void onBackPressed() {

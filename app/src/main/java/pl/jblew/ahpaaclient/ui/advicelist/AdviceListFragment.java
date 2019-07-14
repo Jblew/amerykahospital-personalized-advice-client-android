@@ -44,8 +44,9 @@ public class AdviceListFragment extends Fragment implements SwipeRefreshLayout.O
 
   private OnListFragmentInteractionListener mListener;
   private AdviceListViewModel adviceListViewModel;
-
+  private RecyclerView recyclerView;
   private SwipeRefreshLayout swipeLayout;
+  private LinearLayoutManager layoutManager;
 
   public AdviceListFragment() {}
 
@@ -62,15 +63,27 @@ public class AdviceListFragment extends Fragment implements SwipeRefreshLayout.O
     View view = inflater.inflate(R.layout.fragment_advice_list, container, false);
     Context context = view.getContext();
     swipeLayout = view.findViewById(R.id.advicelistswiperefresh);
-
-    RecyclerView rv = view.findViewById(R.id.advicesrecyclerview);
-    rv.setLayoutManager(new LinearLayoutManager(context));
+  
+    recyclerView = view.findViewById(R.id.advicesrecyclerview);
+    layoutManager = new LinearLayoutManager(context) {
+      @Override
+      public boolean supportsPredictiveItemAnimations() {
+        return false;
+      }
+    };
+    recyclerView.setLayoutManager(layoutManager);
 
     AdviceListAdapter adapter = new AdviceListAdapter();
     adviceListViewModel
         .getAdvices()
         .observe(this, listRes -> onAdviceListChanged(view, adapter, listRes));
-    rv.setAdapter(adapter);
+    adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+      @Override
+      public void onItemRangeInserted(int positionStart, int itemCount) {
+        layoutManager.smoothScrollToPosition(recyclerView, null, 0);
+      }
+    });
+    recyclerView.setAdapter(adapter);
 
     swipeLayout.setOnRefreshListener(() -> onRefresh());
 

@@ -15,4 +15,5 @@
 		android:layout_marginRight="16dp"
 		app:layoutManager="LinearLayoutManager"
 		tools:listitem="@layout/fragment_advice" />
+
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

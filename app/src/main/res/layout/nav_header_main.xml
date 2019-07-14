@@ -6,7 +6,7 @@
 	android:layout_height="@dimen/nav_header_height">
 
 	<fragment
-		android:name="pl.jblew.ahpaaclient.ui.fragments.DrawerHeaderFragment"
+		android:name="pl.jblew.ahpaaclient.ui.supplementaryfragments.DrawerHeaderFragment"
 		android:id="@+id/drawer_header_fragment_in_navheader"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent" />

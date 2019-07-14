@@ -20,16 +20,20 @@
  */
 package pl.jblew.ahpaaclient.ui.advicelist;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
+import androidx.recyclerview.widget.RecyclerView;
 import pl.jblew.ahpaaclient.R;
 import pl.jblew.ahpaaclient.data.model.AdviceEntity;
 
-public class AdviceListAdapter extends ListAdapter<AdviceEntity, AdviceViewHolder> {
+public class AdviceListAdapter extends ListAdapter<AdviceEntity, RecyclerView.ViewHolder> {
+  private static final String TAG = "AdviceListAdapter";
+  
   public static final DiffUtil.ItemCallback<AdviceEntity> DIFF_CALLBACK =
       new DiffUtil.ItemCallback<AdviceEntity>() {
 
@@ -49,14 +53,66 @@ public class AdviceListAdapter extends ListAdapter<AdviceEntity, AdviceViewHolde
   }
 
   @Override
-  public void onBindViewHolder(AdviceViewHolder holder, int position) {
-    holder.bindTo(getItem(position));
+  public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    if (holder instanceof AdviceViewHolder) {
+      ((AdviceViewHolder)holder).bindTo(getItem(position));
+    }
+    else if(holder instanceof FooterViewHolder) {
+      // it does not require binding
+    }
+    else if(holder instanceof EmptylistViewHolder) {
+      // it does not require binding
+    }
+    else {
+      Log.e(TAG, "Unknown view holder: " + holder);
+    }
   }
 
   @Override
-  public AdviceViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+  public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    
+    
+    if (viewType == ViewType.FOOTER.ordinal()) {
+      View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.advice_list_footer, parent, false);
+      FooterViewHolder vh = new FooterViewHolder(v);
+      return vh;
+    }
+  
+    if (viewType == ViewType.EMPTYLIST.ordinal()) {
+      View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.advice_list_empty, parent, false);
+      EmptylistViewHolder vh = new EmptylistViewHolder(v);
+      return vh;
+    }
+  
     View view =
         LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_advice, parent, false);
+    
     return new AdviceViewHolder(view);
+  }
+  
+  @Override
+  public int getItemCount() {
+    int listLength = super.getItemCount();
+    return listLength == 0 ? 2 : super.getItemCount() + 1;
+  }
+  
+  @Override
+  public int getItemViewType(int position) {
+    Log.i(TAG, "getItemViewType position=" + position + ", this.getItemCount = " + this.getItemCount());
+    int listLength = super.getItemCount();
+    if (listLength == 0 && position == 0) {
+      Log.i(TAG, "Emptylist view is in the charge");
+      return ViewType.EMPTYLIST.ordinal();
+    }
+    
+    if (position == this.getItemCount() - 1) {
+      return ViewType.FOOTER.ordinal();
+    }
+    
+    return ViewType.ADVICE.ordinal();
+  }
+  
+  private enum ViewType {
+    FOOTER, EMPTYLIST, ADVICE
   }
 }

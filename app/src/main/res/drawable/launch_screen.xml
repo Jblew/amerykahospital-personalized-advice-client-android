@@ -8,12 +8,7 @@
 
 	<item android:drawable="@color/colorAmerykaGreen" />
 
-	<!-- Your product logo - 144dp color version of your app icon -->
-	<item>
-
-		<bitmap android:src="@drawable/ic_logo_ameryka_splash"
-			android:gravity="center" />
-
+	<item android:gravity="center" android:drawable="@drawable/ic_logo_ameryka_white_141dp" android:width="220dp" android:height="83dp">
 	</item>
 
 </layer-list>

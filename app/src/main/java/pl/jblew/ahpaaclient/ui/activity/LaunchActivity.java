@@ -18,6 +18,7 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+
 package pl.jblew.ahpaaclient.ui.activity;
 
 import android.content.Intent;
@@ -30,6 +31,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.IdpResponse;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -37,6 +39,7 @@ import java.util.Arrays;
 import pl.jblew.ahpaaclient.R;
 
 public class LaunchActivity extends AppCompatActivity {
+  private static String ACTION_SIGN_OUT = LaunchActivity.class.getName() + ".ACTION_SIGN_OUT";
   private static final String TAG = "LaunchActivity";
   private static final int RC_SIGN_IN = 9410;
 
@@ -51,8 +54,8 @@ public class LaunchActivity extends AppCompatActivity {
     setContentView(R.layout.activity_launch);
     findViewItems();
     createView();
-
-    processAuth();
+  
+    processIntentOrLogin();
   }
 
   private void createView() {
@@ -80,8 +83,20 @@ public class LaunchActivity extends AppCompatActivity {
             .build(),
         RC_SIGN_IN);
   }
+  
+  private void processIntentOrLogin() {
+    Intent intent = getIntent();
+    Log.i(TAG, "Processing intent. Action = " + intent.getAction());
+  
+    if (intent.getAction() == ACTION_SIGN_OUT) {
+      performSignOut();
+    }
+    else {
+      performLogin();
+    }
+  }
 
-  private void processAuth() {
+  private void performLogin() {
     FirebaseAuth auth = FirebaseAuth.getInstance();
     // auth.addAuthStateListener();
     FirebaseUser user = auth.getCurrentUser();
@@ -107,6 +122,17 @@ public class LaunchActivity extends AppCompatActivity {
   private void showMsg(int stringId) {
     msgText.setText(stringId);
     Snackbar.make(rootLayout, stringId, Snackbar.LENGTH_LONG).show();
+  }
+
+  private void performSignOut() {
+    Log.i(TAG, "Performing sign out");
+  
+    AuthUI.getInstance()
+        .signOut(this)
+        .addOnCompleteListener(
+            (Task<Void> task) -> {
+              showNotLoggedInUi();
+            });
   }
 
   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -146,5 +172,11 @@ public class LaunchActivity extends AppCompatActivity {
 
   private void goToMainActivity(FirebaseUser user) {
     startActivity(MainActivity.createSignedInIntent(this, user));
+  }
+
+  public static Intent createSingOutIntent(MainActivity mainActivity) {
+    Intent intent = new Intent(mainActivity, LaunchActivity.class);
+    intent.setAction(ACTION_SIGN_OUT);
+    return intent;
   }
 }

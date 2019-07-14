@@ -18,6 +18,7 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+
 package pl.jblew.ahpaaclient.ui.activity;
 
 import android.content.Intent;
@@ -123,7 +124,8 @@ public class MainActivity extends AppCompatActivity
     } else if (id == R.id.nav_import_advice) {
 
     } else if (id == R.id.nav_logout) {
-
+      startActivity(LaunchActivity.createSingOutIntent(this));
+      finish();
     } else if (id == R.id.nav_about_hospital) {
 
     } else if (id == R.id.nav_about_app) {

@@ -44,7 +44,6 @@ public class MainActivity extends AppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener,
         HasSupportFragmentInjector,
         AdviceListFragment.OnListFragmentInteractionListener {
-  private static final int RC_SIGN_IN = 9410;
 
   @Inject DispatchingAndroidInjector<Fragment> dispatchingAndroidInjector;
 
@@ -75,7 +74,8 @@ public class MainActivity extends AppCompatActivity
             drawer,
             toolbar,
             R.string.navigation_drawer_open,
-            R.string.navigation_drawer_close);
+            R.string.navigation_drawer_close) {};
+
     drawer.addDrawerListener(toggle);
     toggle.syncState();
     navigationView.setNavigationItemSelectedListener(this);

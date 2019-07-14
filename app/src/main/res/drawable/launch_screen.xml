@@ -8,7 +8,9 @@
 
 	<item android:drawable="@color/colorAmerykaGreen" />
 
-	<item android:gravity="center" android:drawable="@drawable/ic_logo_ameryka_white_141dp" android:width="220dp" android:height="83dp">
+	<item android:gravity="center"
+		android:drawable="@drawable/ic_logo_ameryka_white_141dp"
+		android:width="220dp" android:height="83dp">
 	</item>
 
 </layer-list>

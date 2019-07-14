@@ -18,6 +18,7 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+
 package pl.jblew.ahpaaclient.ui.advicelist;
 
 import android.content.Context;
@@ -63,26 +64,28 @@ public class AdviceListFragment extends Fragment implements SwipeRefreshLayout.O
     View view = inflater.inflate(R.layout.fragment_advice_list, container, false);
     Context context = view.getContext();
     swipeLayout = view.findViewById(R.id.advicelistswiperefresh);
-  
+
     recyclerView = view.findViewById(R.id.advicesrecyclerview);
-    layoutManager = new LinearLayoutManager(context) {
-      @Override
-      public boolean supportsPredictiveItemAnimations() {
-        return false;
-      }
-    };
+    layoutManager =
+        new LinearLayoutManager(context) {
+          @Override
+          public boolean supportsPredictiveItemAnimations() {
+            return false;
+          }
+        };
     recyclerView.setLayoutManager(layoutManager);
 
     AdviceListAdapter adapter = new AdviceListAdapter();
     adviceListViewModel
         .getAdvices()
         .observe(this, listRes -> onAdviceListChanged(view, adapter, listRes));
-    adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
-      @Override
-      public void onItemRangeInserted(int positionStart, int itemCount) {
-        layoutManager.smoothScrollToPosition(recyclerView, null, 0);
-      }
-    });
+    adapter.registerAdapterDataObserver(
+        new RecyclerView.AdapterDataObserver() {
+          @Override
+          public void onItemRangeInserted(int positionStart, int itemCount) {
+            layoutManager.smoothScrollToPosition(recyclerView, null, 0);
+          }
+        });
     recyclerView.setAdapter(adapter);
 
     swipeLayout.setOnRefreshListener(() -> onRefresh());

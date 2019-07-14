@@ -36,7 +36,6 @@ import pl.jblew.ahpaaclient.data.model.AdviceEntity;
 import pl.jblew.ahpaaclient.data.repository.AdviceRepository;
 
 public class AdviceListViewModel extends ViewModel {
-  private static String TAG = "AdviceListViewModel";
   @Inject public AdviceRepository adviceRepository;
 
   private MutableLiveData<Resource<List<AdviceEntity>>> advices;
@@ -53,40 +52,10 @@ public class AdviceListViewModel extends ViewModel {
   }
 
   public void reloadAdvices() {
-    advices.postValue(Resource.loading(this.getPresentListOrEmptyList()));
-
-    Log.i(TAG, "Advice reload started");
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-    db.collection(BackendConfig.FIRESTORE_COLLECTION_ADVICES)
-        .get()
-        .addOnCanceledListener(
-            () -> {
-              advices.postValue(Resource.success(this.getPresentListOrEmptyList()));
-              Log.i(TAG, "Advice loading calcelled");
-            })
-        .addOnFailureListener(
-            (Exception e) -> {
-              advices.postValue(
-                  Resource.error(
-                      "Could not fetch data: " + e.getMessage(), this.getPresentListOrEmptyList()));
-              Log.e(TAG, "Advice loading error: " + e, e);
-            })
-        .addOnSuccessListener(
-            (qs) -> {
-              Resource successRes =
-                  Resource.success(
-                      this.mapQuerySnapshotToAdviceList(qs),
-                      qs.getMetadata().isFromCache()
-                          ? "This data was loaded from " + "offline cache"
-                          : null);
-              advices.postValue(successRes);
-              Log.i(TAG, "Advice loading completed");
-            });
+    adviceRepository.loadAdvicesForUser(null, (res) -> advices.postValue(Resource.withDataPlaceholder(res, getPresentListOrEmptyList())));
   }
 
-  private List<AdviceEntity> mapQuerySnapshotToAdviceList(QuerySnapshot qs) {
-    return qs.toObjects(AdviceEntity.class);
-  }
+  
 
   private List<AdviceEntity> getPresentListOrEmptyList() {
     return advices.getValue() != null ? advices.getValue().data : Collections.EMPTY_LIST;

@@ -21,25 +21,13 @@
 
 package pl.jblew.ahpaaclient;
 
-import android.app.Activity;
-import android.app.Application;
-import dagger.android.DispatchingAndroidInjector;
-import dagger.android.HasActivityInjector;
-import javax.inject.Inject;
+import dagger.android.AndroidInjector;
+import dagger.android.DaggerApplication;
 import pl.jblew.ahpaaclient.di.component.DaggerAppComponent;
 
-public class AppController extends Application implements HasActivityInjector {
-
-  @Inject DispatchingAndroidInjector<Activity> dispatchingAndroidInjector;
-
+public class AppController extends DaggerApplication {
   @Override
-  public DispatchingAndroidInjector<Activity> activityInjector() {
-    return dispatchingAndroidInjector;
-  }
-
-  @Override
-  public void onCreate() {
-    super.onCreate();
-    DaggerAppComponent.builder().application(this).build().inject(this);
+  protected AndroidInjector<? extends AppController> applicationInjector() {
+    return DaggerAppComponent.builder().create(this);
   }
 }

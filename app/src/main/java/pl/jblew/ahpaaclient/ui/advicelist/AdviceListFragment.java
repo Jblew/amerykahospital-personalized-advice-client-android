@@ -21,6 +21,7 @@
 
 package pl.jblew.ahpaaclient.ui.advicelist;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,15 +34,25 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.google.android.material.snackbar.Snackbar;
+import dagger.android.AndroidInjection;
+import dagger.android.HasFragmentInjector;
 import dagger.android.support.AndroidSupportInjection;
 import java.util.List;
+
+import dagger.android.support.DaggerFragment;
 import pl.jblew.ahpaaclient.R;
 import pl.jblew.ahpaaclient.data.Resource;
 import pl.jblew.ahpaaclient.data.model.AdviceEntity;
+import pl.jblew.ahpaaclient.factory.ViewModelFactory;
 import pl.jblew.ahpaaclient.viewmodel.AdviceListViewModel;
 
-public class AdviceListFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+import javax.inject.Inject;
+
+public class AdviceListFragment extends DaggerFragment implements SwipeRefreshLayout.OnRefreshListener {
   private static String TAG = "AdviceListFragment";
+  
+  @Inject
+  public ViewModelFactory vmFactory;
 
   private OnListFragmentInteractionListener mListener;
   private AdviceListViewModel adviceListViewModel;
@@ -54,8 +65,7 @@ public class AdviceListFragment extends Fragment implements SwipeRefreshLayout.O
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    AndroidSupportInjection.inject(this);
-    adviceListViewModel = ViewModelProviders.of(this).get(AdviceListViewModel.class);
+    adviceListViewModel = ViewModelProviders.of(this, vmFactory).get(AdviceListViewModel.class);
   }
 
   @Override

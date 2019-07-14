@@ -21,10 +21,59 @@
 
 package pl.jblew.ahpaaclient.data.repository;
 
+import android.util.Log;
+import androidx.lifecycle.MutableLiveData;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+import pl.jblew.ahpaaclient.BackendConfig;
+import pl.jblew.ahpaaclient.data.Resource;
+import pl.jblew.ahpaaclient.data.model.AdviceEntity;
+
+import javax.inject.Inject;
 import javax.inject.Singleton;
+import java.util.Collections;
+import java.util.List;
 
 @Singleton
 public class AdviceRepository {
-
+  private static final String TAG = "AdviceRepository";
+  
+  @Inject
   public AdviceRepository() {}
+  
+  public void loadAdvicesForUser(FirebaseUser uid, Resource.Listener listener) {
+    Log.i(TAG, "Advice reload started");
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    listener.resourceChanged(Resource.loading(null));
+    db.collection(BackendConfig.FIRESTORE_COLLECTION_ADVICES)
+        .get()
+        .addOnCanceledListener(
+            () -> {
+              listener.resourceChanged(Resource.success(null));
+              Log.i(TAG, "Advice loading calcelled");
+            })
+        .addOnFailureListener(
+            (Exception e) -> {
+              listener.resourceChanged(
+                  Resource.error(
+                      "Could not fetch data: " + e.getMessage(), null));
+              Log.e(TAG, "Advice loading error: " + e, e);
+            })
+        .addOnSuccessListener(
+            (qs) -> {
+              Resource successRes =
+                  Resource.success(
+                      this.mapQuerySnapshotToAdviceList(qs),
+                      qs.getMetadata().isFromCache()
+                          ? "This data was loaded from " + "offline cache"
+                          : null);
+              listener.resourceChanged(successRes);
+              Log.i(TAG, "Advice loading completed");
+            });
+  }
+  
+  private List<AdviceEntity> mapQuerySnapshotToAdviceList(QuerySnapshot qs) {
+    return qs.toObjects(AdviceEntity.class);
+  }
 }

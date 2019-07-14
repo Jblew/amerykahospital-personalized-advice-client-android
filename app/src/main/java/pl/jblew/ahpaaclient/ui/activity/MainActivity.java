@@ -35,27 +35,20 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseUser;
 import dagger.android.AndroidInjection;
 import dagger.android.DispatchingAndroidInjector;
+import dagger.android.support.DaggerAppCompatActivity;
 import dagger.android.support.HasSupportFragmentInjector;
 import javax.inject.Inject;
 import pl.jblew.ahpaaclient.R;
 import pl.jblew.ahpaaclient.data.model.AdviceEntity;
 import pl.jblew.ahpaaclient.ui.advicelist.AdviceListFragment;
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends DaggerAppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener,
         HasSupportFragmentInjector,
         AdviceListFragment.OnListFragmentInteractionListener {
-
-  @Inject DispatchingAndroidInjector<Fragment> dispatchingAndroidInjector;
-
-  @Override
-  public DispatchingAndroidInjector<Fragment> supportFragmentInjector() {
-    return dispatchingAndroidInjector;
-  }
-
+  
   @Override
   protected void onCreate(Bundle savedInstanceState) {
-    AndroidInjection.inject(this);
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 

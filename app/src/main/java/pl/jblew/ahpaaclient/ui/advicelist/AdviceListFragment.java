@@ -100,7 +100,6 @@ public class AdviceListFragment extends Fragment implements SwipeRefreshLayout.O
       Snackbar.make(view, listRes.message, Snackbar.LENGTH_LONG).show();
     }
     setRefreshingIndicatorVisibility(view, listRes.isLoading());
-    Log.i(TAG, "onAdviceListChanged: status=" + listRes.status.name());
   }
 
   private void setRefreshingIndicatorVisibility(View view, boolean loading) {

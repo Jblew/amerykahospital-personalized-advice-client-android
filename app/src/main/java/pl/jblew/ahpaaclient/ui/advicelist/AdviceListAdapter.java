@@ -99,12 +99,8 @@ public class AdviceListAdapter extends ListAdapter<AdviceEntity, RecyclerView.Vi
 
   @Override
   public int getItemViewType(int position) {
-    Log.i(
-        TAG,
-        "getItemViewType position=" + position + ", this.getItemCount = " + this.getItemCount());
     int listLength = super.getItemCount();
     if (listLength == 0 && position == 0) {
-      Log.i(TAG, "Emptylist view is in the charge");
       return ViewType.EMPTYLIST.ordinal();
     }
 

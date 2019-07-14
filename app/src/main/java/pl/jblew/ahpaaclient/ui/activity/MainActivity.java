@@ -26,21 +26,21 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseUser;
-import dagger.android.AndroidInjection;
-import dagger.android.DispatchingAndroidInjector;
 import dagger.android.support.DaggerAppCompatActivity;
 import dagger.android.support.HasSupportFragmentInjector;
-import javax.inject.Inject;
 import pl.jblew.ahpaaclient.R;
 import pl.jblew.ahpaaclient.data.model.AdviceEntity;
+import pl.jblew.ahpaaclient.ui.about.AboutAppFragment;
+import pl.jblew.ahpaaclient.ui.about.AboutHospitalFragment;
 import pl.jblew.ahpaaclient.ui.advicelist.AdviceListFragment;
+import pl.jblew.ahpaaclient.ui.importadvice.ImportAdviceFragment;
 
 public class MainActivity extends DaggerAppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener,
@@ -53,8 +53,9 @@ public class MainActivity extends DaggerAppCompatActivity
     setContentView(R.layout.activity_main);
 
     drawView();
+    changeFragment(new AdviceListFragment());
   }
-
+  
   private void drawView() {
     Toolbar toolbar = findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
@@ -72,6 +73,12 @@ public class MainActivity extends DaggerAppCompatActivity
     drawer.addDrawerListener(toggle);
     toggle.syncState();
     navigationView.setNavigationItemSelectedListener(this);
+  }
+  
+  private void changeFragment(Fragment nextFragment) {
+    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+    ft.replace(R.id.ac_main_content_frame, nextFragment);
+    ft.commit();
   }
 
   @Override
@@ -112,17 +119,17 @@ public class MainActivity extends DaggerAppCompatActivity
     // Handle navigation view item clicks here.
     int id = item.getItemId();
 
-    if (id == R.id.nav_advices) {
-
-    } else if (id == R.id.nav_import_advice) {
-
-    } else if (id == R.id.nav_logout) {
+    if (id == R.id.nav_logout) {
       startActivity(LaunchActivity.createSingOutIntent(this));
       finish();
-    } else if (id == R.id.nav_about_hospital) {
-
+    } else if (id == R.id.nav_advices) {
+      changeFragment(new AdviceListFragment());
+    } else if (id == R.id.nav_import_advice) {
+      changeFragment(new ImportAdviceFragment());
+    } else  if (id == R.id.nav_about_hospital) {
+      changeFragment(new AboutHospitalFragment());
     } else if (id == R.id.nav_about_app) {
-
+      changeFragment(new AboutAppFragment());
     }
 
     DrawerLayout drawer = findViewById(R.id.drawer_layout);

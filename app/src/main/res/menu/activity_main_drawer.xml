@@ -21,7 +21,7 @@
 		<menu>
 			<item android:id="@+id/nav_about_hospital"
 				android:icon="@drawable/ic_location_city_grey_800_18dp"
-				android:title="@string/menu_about_app" />
+				android:title="@string/menu_about_hospital" />
 
 			<item android:id="@+id/nav_about_app"
 				android:icon="@drawable/ic_smartphone_grey_800_18dp"

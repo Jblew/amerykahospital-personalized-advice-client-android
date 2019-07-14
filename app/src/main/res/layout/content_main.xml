@@ -9,10 +9,9 @@
 	tools:context=".ui.activity.MainActivity"
 	tools:showIn="@layout/app_bar_main">
 
-	<fragment
-		android:name="pl.jblew.ahpaaclient.ui.advicelist.AdviceListFragment"
-		android:id="@+id/advicelist_inmainview_fragment"
-		android:layout_width="match_parent"
-		android:layout_height="match_parent" />
+	<FrameLayout
+			android:id="@+id/ac_main_content_frame"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

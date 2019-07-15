@@ -47,6 +47,7 @@ dependencies {
     implementation 'com.android.support:multidex:1.0.3'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
     implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.github.mukeshsolanki:MarkdownView-Android:1.0.8'
 
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
@@ -69,6 +70,12 @@ gradle.projectsEvaluated {
         options.compilerArgs << "-Xmaxerrs" << "500"
     }
 }
+
+task copyReadmeToAssets(type: Copy) {
+    from file("../README.md")
+    into file("src/main/assets/")
+}
+preBuild.dependsOn(copyReadmeToAssets)
 
 apply plugin: "com.diffplug.gradle.spotless"
 spotless {

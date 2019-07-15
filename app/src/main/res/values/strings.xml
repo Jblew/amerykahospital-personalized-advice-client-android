@@ -30,16 +30,35 @@
 		skontaktuj się ze szpitalem i poproś o kod porady, a następnie wpisz
 		go w poniższym polu.</string>
 	<string name="import_advice_btn">Importuj</string>
-    <string name="about_hospital_title">Wojewódzki Szpital Rehabilitacyjny dla Dzieci w Ameryce</string>
-    <string name="about_hospital_link_text">
-        Strona internetowa: &lt;a href=https://ameryka.com.pl>www.ameryka.com.pl&lt;/a>
-    </string>
-	<string name="about_hospital_text_1">Wojewódzki Szpital Rehabilitacyjny dla Dzieci w Ameryce k. Olsztynka jest samodzielnym publicznym zakładem opieki zdrowotnej zajmującym się usprawnianiem leczniczym w formie hospitalizacji.W ciągu ostatnich lat, dzięki znacznym środkom finansowym, przygotowaliśmy bardzo nowoczesną placówkę rehabilitacyjną, a nasz zapał i zaangażowanie gwarantują dalszy jej rozwój.
+	<string name="about_hospital_title">Wojewódzki Szpital Rehabilitacyjny dla Dzieci w
+		Ameryce</string>
+	<string name="about_hospital_link_text">
+		Strona internetowa: &lt;a
+		href=https://ameryka.com.pl>www.ameryka.com.pl&lt;/a>
+	</string>
+	<string name="about_hospital_text_1">Wojewódzki Szpital Rehabilitacyjny dla Dzieci w
+		Ameryce k. Olsztynka jest samodzielnym publicznym zakładem opieki
+		zdrowotnej zajmującym się usprawnianiem leczniczym w formie
+		hospitalizacji.W ciągu ostatnich lat, dzięki znacznym środkom
+		finansowym, przygotowaliśmy bardzo nowoczesną placówkę
+		rehabilitacyjną, a nasz zapał i zaangażowanie gwarantują dalszy jej
+		rozwój.
 
-        Nasz zespół, to grono znakomitych specjalistów: lekarzy, fizjoterapeutów, pielęgniarek i pedagogów.
+		Nasz zespół, to grono znakomitych specjalistów: lekarzy,
+		fizjoterapeutów,
+		pielęgniarek i pedagogów.
 
-        Naszym nadrzędnym celem jest zawsze dobro naszych pacjentów. Staramy się nie tylko utrzymać wysoki poziom kwalifikacji, ale także wspierać leczenie ciepłą i serdeczną atmosferą.
+		Naszym nadrzędnym celem jest
+		zawsze dobro naszych pacjentów. Staramy się nie
+		tylko utrzymać wysoki
+		poziom kwalifikacji, ale także wspierać leczenie
+		ciepłą i serdeczną
+		atmosferą.
 
-        Atutem naszej placówki jest doskonałe położenie w kompleksie leśnym o unikalnym mikroklimacie, którego walory lecznicze potwierdzają badania naukowe i blisko 100-letnia tradycja.
-    </string>
+		Atutem naszej placówki jest doskonałe położenie w kompleksie
+		leśnym o
+		unikalnym mikroklimacie, którego walory lecznicze potwierdzają
+		badania
+		naukowe i blisko 100-letnia tradycja.
+	</string>
 </resources>

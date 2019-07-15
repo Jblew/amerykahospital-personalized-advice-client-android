@@ -7,54 +7,49 @@
 	tools:context=".ui.about.AboutHospitalFragment">
 
 
-	<ScrollView
+	<ScrollView android:layout_width="match_parent"
+		android:layout_height="match_parent">
+
+
+		<LinearLayout android:orientation="vertical"
 			android:layout_width="match_parent"
-			android:layout_height="match_parent">
+			android:layout_height="wrap_content"
+			android:layout_marginHorizontal="12dp"
+			android:layout_marginTop="12dp">
 
-
-		<LinearLayout
-				android:orientation="vertical"
+			<TextView android:text="@string/about_hospital_title"
 				android:layout_width="match_parent"
+				android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
 				android:layout_height="wrap_content"
-			android:layout_marginHorizontal="12dp" android:layout_marginTop="12dp"
-		>
+				android:layout_marginBottom="12dp" />
 
-			<TextView
-					android:text="@string/about_hospital_title"
-					android:layout_width="match_parent"
-					android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
-					android:layout_height="wrap_content"
-					android:layout_marginBottom="12dp"/>
+			<TextView android:text=""
+				android:layout_width="match_parent"
+				android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+				android:layout_height="wrap_content"
+				android:id="@+id/webpageHtmlText" android:autoLink="web"
+				android:linksClickable="true" android:layout_marginBottom="12dp" />
 
-			<TextView
-					android:text=""
-					android:layout_width="match_parent"
-					android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-					android:layout_height="wrap_content" android:id="@+id/webpageHtmlText"
-					android:autoLink="web" android:linksClickable="true"
-					android:layout_marginBottom="12dp"/>
+			<ImageView android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:src="@drawable/about_hospital_1" android:scaleType="fitXY"
+				android:adjustViewBounds="true" android:layout_marginBottom="12dp" />
 
-			<ImageView android:layout_width="match_parent" android:layout_height="wrap_content"
-					   android:src="@drawable/about_hospital_1" android:scaleType="fitXY" android:adjustViewBounds="true"
-					   android:layout_marginBottom="12dp"
-			/>
+			<TextView android:text="@string/about_hospital_text_1"
+				android:layout_width="match_parent"
+				android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+				android:layout_height="wrap_content" android:id="@+id/textView"
+				android:layout_marginBottom="12dp" />
 
-			<TextView
-					android:text="@string/about_hospital_text_1"
-					android:layout_width="match_parent"
-					android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-					android:layout_height="wrap_content" android:id="@+id/textView"
-			android:layout_marginBottom="12dp"/>
+			<ImageView android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:src="@drawable/about_hospital_2" android:scaleType="fitXY"
+				android:adjustViewBounds="true" android:layout_marginBottom="12dp" />
 
-			<ImageView android:layout_width="match_parent" android:layout_height="wrap_content"
-					   android:src="@drawable/about_hospital_2" android:scaleType="fitXY" android:adjustViewBounds="true"
-					   android:layout_marginBottom="12dp"
-			/>
-
-			<ImageView android:layout_width="match_parent" android:layout_height="wrap_content"
-					   android:src="@drawable/about_hospital_3" android:scaleType="fitXY" android:adjustViewBounds="true"
-					   android:layout_marginBottom="12dp"
-			/>
+			<ImageView android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:src="@drawable/about_hospital_3" android:scaleType="fitXY"
+				android:adjustViewBounds="true" android:layout_marginBottom="12dp" />
 		</LinearLayout>
 	</ScrollView>
 

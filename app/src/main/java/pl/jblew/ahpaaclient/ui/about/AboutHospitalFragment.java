@@ -21,9 +21,7 @@
 
 package pl.jblew.ahpaaclient.ui.about;
 
-import android.os.Build;
 import android.os.Bundle;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,10 +42,11 @@ public class AboutHospitalFragment extends Fragment {
       LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     // Inflate the layout for this fragment
     View v = inflater.inflate(R.layout.fragment_about_hospital, container, false);
-    
+
     TextView webpageHtmlText = v.findViewById(R.id.webpageHtmlText);
-    HtmlIntoTextView.insertHtmlIntoTextView(webpageHtmlText, getResources().getString(R.string.about_hospital_link_text));
-    
+    HtmlIntoTextView.insertHtmlIntoTextView(
+        webpageHtmlText, getResources().getString(R.string.about_hospital_link_text));
+
     return v;
   }
 }

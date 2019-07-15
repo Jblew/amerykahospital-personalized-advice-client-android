@@ -50,8 +50,9 @@ public class Resource<T> {
   public static <T> Resource<T> loading(@Nullable T data) {
     return new Resource<>(Status.LOADING, data, null);
   }
-  
-  public static <T> Resource<T> withDataPlaceholder(@NonNull Resource<T> res, @Nullable T placeholderData) {
+
+  public static <T> Resource<T> withDataPlaceholder(
+      @NonNull Resource<T> res, @Nullable T placeholderData) {
     return new Resource<>(res.status, res.data != null ? res.data : placeholderData, res.message);
   }
 
@@ -62,7 +63,7 @@ public class Resource<T> {
   public boolean isLoading() {
     return status == Status.LOADING;
   }
-  
+
   public boolean isError() {
     return status == Status.ERROR;
   }
@@ -72,7 +73,7 @@ public class Resource<T> {
     SUCCESS,
     ERROR
   }
-  
+
   @FunctionalInterface
   public interface Listener {
     void resourceChanged(Resource r);

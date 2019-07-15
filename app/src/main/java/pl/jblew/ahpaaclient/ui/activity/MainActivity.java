@@ -46,7 +46,7 @@ public class MainActivity extends DaggerAppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener,
         HasSupportFragmentInjector,
         AdviceListFragment.OnListFragmentInteractionListener {
-  
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -55,7 +55,7 @@ public class MainActivity extends DaggerAppCompatActivity
     drawView();
     changeFragment(new AdviceListFragment());
   }
-  
+
   private void drawView() {
     Toolbar toolbar = findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
@@ -74,7 +74,7 @@ public class MainActivity extends DaggerAppCompatActivity
     toggle.syncState();
     navigationView.setNavigationItemSelectedListener(this);
   }
-  
+
   private void changeFragment(Fragment nextFragment) {
     FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
     ft.replace(R.id.ac_main_content_frame, nextFragment);
@@ -126,7 +126,7 @@ public class MainActivity extends DaggerAppCompatActivity
       changeFragment(new AdviceListFragment());
     } else if (id == R.id.nav_import_advice) {
       changeFragment(new ImportAdviceFragment());
-    } else  if (id == R.id.nav_about_hospital) {
+    } else if (id == R.id.nav_about_hospital) {
       changeFragment(new AboutHospitalFragment());
     } else if (id == R.id.nav_about_app) {
       changeFragment(new AboutAppFragment());

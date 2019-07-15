@@ -21,10 +21,7 @@
 
 package pl.jblew.ahpaaclient.di.component;
 
-import android.app.Application;
-import dagger.BindsInstance;
 import dagger.Component;
-import dagger.android.AndroidInjectionModule;
 import dagger.android.AndroidInjector;
 import dagger.android.support.AndroidSupportInjectionModule;
 import javax.inject.Singleton;
@@ -43,6 +40,5 @@ import pl.jblew.ahpaaclient.di.module.ViewModelModule;
 @Singleton
 public interface AppComponent extends AndroidInjector<AppController> {
   @Component.Builder
-  abstract class Builder extends AndroidInjector.Builder<AppController> {
-  }
+  abstract class Builder extends AndroidInjector.Builder<AppController> {}
 }

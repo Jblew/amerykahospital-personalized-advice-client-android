@@ -22,26 +22,23 @@
 package pl.jblew.ahpaaclient.data.repository;
 
 import android.util.Log;
-import androidx.lifecycle.MutableLiveData;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import java.util.List;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 import pl.jblew.ahpaaclient.BackendConfig;
 import pl.jblew.ahpaaclient.data.Resource;
 import pl.jblew.ahpaaclient.data.model.AdviceEntity;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import java.util.Collections;
-import java.util.List;
-
 @Singleton
 public class AdviceRepository {
   private static final String TAG = "AdviceRepository";
-  
+
   @Inject
   public AdviceRepository() {}
-  
+
   public void loadAdvicesForUser(FirebaseUser uid, Resource.Listener listener) {
     Log.i(TAG, "Advice reload started");
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -56,8 +53,7 @@ public class AdviceRepository {
         .addOnFailureListener(
             (Exception e) -> {
               listener.resourceChanged(
-                  Resource.error(
-                      "Could not fetch data: " + e.getMessage(), null));
+                  Resource.error("Could not fetch data: " + e.getMessage(), null));
               Log.e(TAG, "Advice loading error: " + e, e);
             })
         .addOnSuccessListener(
@@ -72,7 +68,7 @@ public class AdviceRepository {
               Log.i(TAG, "Advice loading completed");
             });
   }
-  
+
   private List<AdviceEntity> mapQuerySnapshotToAdviceList(QuerySnapshot qs) {
     return qs.toObjects(AdviceEntity.class);
   }

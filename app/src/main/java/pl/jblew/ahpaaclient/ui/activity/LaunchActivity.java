@@ -54,7 +54,7 @@ public class LaunchActivity extends AppCompatActivity {
     setContentView(R.layout.activity_launch);
     findViewItems();
     createView();
-  
+
     processIntentOrLogin();
   }
 
@@ -83,15 +83,14 @@ public class LaunchActivity extends AppCompatActivity {
             .build(),
         RC_SIGN_IN);
   }
-  
+
   private void processIntentOrLogin() {
     Intent intent = getIntent();
     Log.i(TAG, "Processing intent. Action = " + intent.getAction());
-  
+
     if (intent.getAction() == ACTION_SIGN_OUT) {
       performSignOut();
-    }
-    else {
+    } else {
       performLogin();
     }
   }
@@ -126,7 +125,7 @@ public class LaunchActivity extends AppCompatActivity {
 
   private void performSignOut() {
     Log.i(TAG, "Performing sign out");
-  
+
     AuthUI.getInstance()
         .signOut(this)
         .addOnCompleteListener(

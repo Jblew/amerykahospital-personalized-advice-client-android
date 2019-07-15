@@ -21,16 +21,12 @@
 
 package pl.jblew.ahpaaclient.viewmodel;
 
-import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 import java.util.Collections;
 import java.util.List;
 import javax.inject.Inject;
-import pl.jblew.ahpaaclient.BackendConfig;
 import pl.jblew.ahpaaclient.data.Resource;
 import pl.jblew.ahpaaclient.data.model.AdviceEntity;
 import pl.jblew.ahpaaclient.data.repository.AdviceRepository;
@@ -52,10 +48,10 @@ public class AdviceListViewModel extends ViewModel {
   }
 
   public void reloadAdvices() {
-    adviceRepository.loadAdvicesForUser(null, (res) -> advices.postValue(Resource.withDataPlaceholder(res, getPresentListOrEmptyList())));
+    adviceRepository.loadAdvicesForUser(
+        null,
+        (res) -> advices.postValue(Resource.withDataPlaceholder(res, getPresentListOrEmptyList())));
   }
-
-  
 
   private List<AdviceEntity> getPresentListOrEmptyList() {
     return advices.getValue() != null ? advices.getValue().data : Collections.EMPTY_LIST;

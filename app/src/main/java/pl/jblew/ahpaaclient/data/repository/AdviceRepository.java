@@ -39,11 +39,12 @@ public class AdviceRepository {
   @Inject
   public AdviceRepository() {}
 
-  public void loadAdvicesForUser(FirebaseUser uid, Resource.Listener listener) {
+  public void loadAdvicesForUser(FirebaseUser user, Resource.Listener listener) {
     Log.i(TAG, "Advice reload started");
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     listener.resourceChanged(Resource.loading(null));
     db.collection(BackendConfig.FIRESTORE_COLLECTION_ADVICES)
+        .whereEqualTo("uid", user.getUid())
         .get()
         .addOnCanceledListener(
             () -> {

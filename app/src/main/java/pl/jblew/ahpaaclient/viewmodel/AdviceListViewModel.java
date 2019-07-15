@@ -24,6 +24,8 @@ package pl.jblew.ahpaaclient.viewmodel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import java.util.Collections;
 import java.util.List;
 import javax.inject.Inject;
@@ -48,9 +50,14 @@ public class AdviceListViewModel extends ViewModel {
   }
 
   public void reloadAdvices() {
-    adviceRepository.loadAdvicesForUser(
-        null,
-        (res) -> advices.postValue(Resource.withDataPlaceholder(res, getPresentListOrEmptyList())));
+    FirebaseAuth auth = FirebaseAuth.getInstance();
+    FirebaseUser user = auth.getCurrentUser();
+    if (user != null) {
+      adviceRepository.loadAdvicesForUser(
+          user,
+          (res) ->
+              advices.postValue(Resource.withDataPlaceholder(res, getPresentListOrEmptyList())));
+    }
   }
 
   private List<AdviceEntity> getPresentListOrEmptyList() {

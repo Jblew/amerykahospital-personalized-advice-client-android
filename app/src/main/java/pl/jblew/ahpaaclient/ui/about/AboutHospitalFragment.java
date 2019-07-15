@@ -21,12 +21,16 @@
 
 package pl.jblew.ahpaaclient.ui.about;
 
+import android.os.Build;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import pl.jblew.ahpaaclient.R;
+import pl.jblew.ahpaaclient.utils.HtmlIntoTextView;
 
 /** A simple {@link Fragment} subclass. */
 public class AboutHospitalFragment extends Fragment {
@@ -39,6 +43,11 @@ public class AboutHospitalFragment extends Fragment {
   public View onCreateView(
       LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     // Inflate the layout for this fragment
-    return inflater.inflate(R.layout.fragment_about_hospital, container, false);
+    View v = inflater.inflate(R.layout.fragment_about_hospital, container, false);
+    
+    TextView webpageHtmlText = v.findViewById(R.id.webpageHtmlText);
+    HtmlIntoTextView.insertHtmlIntoTextView(webpageHtmlText, getResources().getString(R.string.about_hospital_link_text));
+    
+    return v;
   }
 }

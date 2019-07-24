@@ -8,12 +8,57 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:1065789277110:android:4ff4013b2fa5e684",
+        "android_client_info": {
+          "package_name": "pl.com.ameryka.aplikacja"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1065789277110-g17oe7fhc34td2i79bar97n1tq5hoi84.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "pl.com.ameryka.aplikacja",
+            "certificate_hash": "c69eba956b99dc405e2f5daf169c975ef915e598"
+          }
+        },
+        {
+          "client_id": "1065789277110-rcjfnh1skep2knspdndspgqkejir4dml.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6d3yGJUbfGJthbk2NwzqFTe-oB1dyPXo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1065789277110-rcjfnh1skep2knspdndspgqkejir4dml.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:1065789277110:android:38d5d249dc70745d",
         "android_client_info": {
           "package_name": "pl.jblew.ahpaaclient"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "1065789277110-vvkqkmphpg3v5adsgln0r6cctgqcbltb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "pl.jblew.ahpaaclient",
+            "certificate_hash": "c08993242c39a8a21c0e92ffeb677aa9a15fe2ab"
+          }
+        },
         {
           "client_id": "1065789277110-rcjfnh1skep2knspdndspgqkejir4dml.apps.googleusercontent.com",
           "client_type": 3

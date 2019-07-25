@@ -33,7 +33,7 @@ import java.util.Date;
 public class AdviceViewHolder extends RecyclerView.ViewHolder {
   private final View view;
   private final TextView doctorText;
-  private final TextView dateText;
+  private final TextView datePatientText;
   private final TextView adviceText;
   
   private final DateFormat dateFormat;
@@ -44,7 +44,7 @@ public class AdviceViewHolder extends RecyclerView.ViewHolder {
     super(view);
     this.view = view;
     doctorText = view.findViewById(R.id.doctor_text);
-    dateText = view.findViewById(R.id.date_text);
+    datePatientText = view.findViewById(R.id.datePatient_text);
     adviceText = view.findViewById(R.id.advice_text);
   
     dateFormat = android.text.format.DateFormat.getDateFormat(view.getContext());
@@ -57,7 +57,9 @@ public class AdviceViewHolder extends RecyclerView.ViewHolder {
 
   public void bindTo(AdviceEntity item) {
     doctorText.setText(item.medicalprofessionalName);
-    dateText.setText(dateFormat.format(item.getDate()));
+    
+    String datePatientStr = dateFormat.format(item.getDate()) + " • " + item.patientName;
+    datePatientText.setText(datePatientStr);
     adviceText.setText(item.advice);
   }
 }

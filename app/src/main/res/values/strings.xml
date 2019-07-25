@@ -62,4 +62,5 @@
 		naukowe i blisko 100-letnia tradycja.
 	</string>
     <string name="loading">Ładowanie...</string>
+	<string name="bullet_separator">•</string>
 </resources>

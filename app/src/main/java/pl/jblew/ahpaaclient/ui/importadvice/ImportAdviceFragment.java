@@ -47,14 +47,20 @@ import javax.inject.Inject;
 public class ImportAdviceFragment extends DaggerFragment {
   private static final String TAG = "ImportAdviceFragment";
   
+  private String importAdviceOnFragmentStartup_adviceId = null;
+  
   @Inject
   public ViewModelFactory vmFactory;
+  
   private ImportAdviceViewModel importAdviceViewModel;
   private EditText adviceCodeInput;
   private Button importButton;
   private ProgressBar loadingSpinnder;
   private TextView statusText;
   
+  private ImportAdviceFragment(String importAdviceOnFragmentStartup_adviceId) {
+     this.importAdviceOnFragmentStartup_adviceId = importAdviceOnFragmentStartup_adviceId;
+  }
   
   public ImportAdviceFragment() {
     // Required empty public constructor
@@ -78,6 +84,26 @@ public class ImportAdviceFragment extends DaggerFragment {
     
     
     return view;
+  }
+  
+  @Override
+  public void onStart() {
+    super.onStart();
+    
+    handleImportAdviceOnStartup();
+  }
+  
+  private void handleImportAdviceOnStartup() {
+    if (importAdviceOnFragmentStartup_adviceId != null) {
+      importAdvice(importAdviceOnFragmentStartup_adviceId);
+      importAdviceOnFragmentStartup_adviceId = null;
+    }
+  }
+  
+  private void importAdvice(String adviceId) {
+    adviceCodeInput.setText(adviceId);
+    Log.i(TAG, "ImportAdviceFragment.imortAdvice " + adviceId);
+    fireAdviceImport();
   }
   
   private void fireAdviceImport() {
@@ -128,5 +154,9 @@ public class ImportAdviceFragment extends DaggerFragment {
     statusText.setVisibility(View.VISIBLE);
     statusText.setText(error);
     statusText.setTextColor(Color.RED);
+  }
+  
+  public static ImportAdviceFragment importAdviceOnStartup(String adviceId) {
+    return new ImportAdviceFragment(adviceId);
   }
 }

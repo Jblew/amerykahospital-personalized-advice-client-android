@@ -75,7 +75,7 @@ public class Resource<T> {
   }
 
   @FunctionalInterface
-  public interface Listener {
-    void resourceChanged(Resource r);
+  public interface Listener<T> {
+    void resourceChanged(Resource<T> r);
   }
 }

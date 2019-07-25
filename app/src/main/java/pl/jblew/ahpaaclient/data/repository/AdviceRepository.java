@@ -24,6 +24,7 @@ package pl.jblew.ahpaaclient.data.repository;
 import android.util.Log;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import java.util.List;
 import javax.inject.Inject;
@@ -45,6 +46,7 @@ public class AdviceRepository {
     listener.resourceChanged(Resource.loading(null));
     db.collection(BackendConfig.FIRESTORE_COLLECTION_ADVICES)
         .whereEqualTo("uid", user.getUid())
+        .orderBy("timestamp", Query.Direction.DESCENDING)
         .get()
         .addOnCanceledListener(
             () -> {

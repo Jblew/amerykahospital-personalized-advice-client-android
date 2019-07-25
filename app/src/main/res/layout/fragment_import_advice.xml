@@ -31,7 +31,7 @@
 			android:layout_width="match_parent"
 			android:layout_height="match_parent">
 
-			<EditText android:id="@+id/adviceCodeInput"
+			<EditText android:id="@+id/importAdvice_adviceCodeInput"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:inputType="textNoSuggestions" android:hint="Kod porady"
@@ -40,13 +40,37 @@
 				app:layout_constraintTop_toTopOf="parent"
 				tools:layout_editor_absoluteX="24dp" />
 
-			<Button android:id="@+id/importAdviceBtn"
+			<Button android:id="@+id/importAdvice_importBtn"
 				android:text="@string/import_advice_btn"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				app:layout_constraintTop_toBottomOf="@id/adviceCodeInput"
-				app:layout_constraintEnd_toEndOf="@id/adviceCodeInput"
+				app:layout_constraintTop_toBottomOf="@id/importAdvice_adviceCodeInput"
+				app:layout_constraintEnd_toEndOf="@id/importAdvice_adviceCodeInput"
 				android:layout_marginTop="6dp" android:layout_marginRight="6dp" />
+
+			<ProgressBar
+					android:id="@+id/importAdvice_loadingSpinner"
+					style="?android:attr/progressBarStyleLarge"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_centerHorizontal="true"
+					app:layout_constraintTop_toBottomOf="@id/importAdvice_importBtn"
+					android:layout_marginTop="12dp"
+					android:visibility="gone"
+			/>
+
+			<TextView
+					android:id="@+id/importAdvice_statusText"
+					android:text=""
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_centerHorizontal="true"
+					app:layout_constraintTop_toBottomOf="@id/importAdvice_loadingSpinner"
+					android:layout_marginTop="12dp"
+					android:layout_marginHorizontal="24dp"
+					android:textAlignment="center"
+					android:visibility="gone"
+			/>
 
 
 		</androidx.constraintlayout.widget.ConstraintLayout>

@@ -21,6 +21,12 @@
 
 package pl.jblew.ahpaaclient.data.model;
 
+import android.text.format.DateFormat;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
 public class AdviceEntity {
   public String id;
   public String patientName;
@@ -28,50 +34,37 @@ public class AdviceEntity {
   public String parentPhoneNumber;
   public String uid;
   public String advice;
-  public String dateISO;
-
+  public long timestamp;
+  
+  public Date getDate() {
+    return new Date(this.timestamp * 1000L);
+  }
+  
   @Override
   public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    
     AdviceEntity that = (AdviceEntity) o;
-
-    if (patientName != null ? !patientName.equals(that.patientName) : that.patientName != null) {
-      return false;
-    }
-    if (medicalprofessionalName != null
-        ? !medicalprofessionalName.equals(that.medicalprofessionalName)
-        : that.medicalprofessionalName != null) {
-      return false;
-    }
-    if (parentPhoneNumber != null
-        ? !parentPhoneNumber.equals(that.parentPhoneNumber)
-        : that.parentPhoneNumber != null) {
-      return false;
-    }
-    if (uid != null ? !uid.equals(that.uid) : that.uid != null) {
-      return false;
-    }
-    if (advice != null ? !advice.equals(that.advice) : that.advice != null) {
-      return false;
-    }
-    return dateISO != null ? dateISO.equals(that.dateISO) : that.dateISO == null;
+    
+    if (timestamp != that.timestamp) return false;
+    if (!id.equals(that.id)) return false;
+    if (!patientName.equals(that.patientName)) return false;
+    if (!medicalprofessionalName.equals(that.medicalprofessionalName)) return false;
+    if (!parentPhoneNumber.equals(that.parentPhoneNumber)) return false;
+    if (uid != null ? !uid.equals(that.uid) : that.uid != null) return false;
+    return advice.equals(that.advice);
   }
-
+  
   @Override
   public int hashCode() {
-    int result = patientName != null ? patientName.hashCode() : 0;
-    result =
-        31 * result + (medicalprofessionalName != null ? medicalprofessionalName.hashCode() : 0);
-    result = 31 * result + (parentPhoneNumber != null ? parentPhoneNumber.hashCode() : 0);
+    int result = id.hashCode();
+    result = 31 * result + patientName.hashCode();
+    result = 31 * result + medicalprofessionalName.hashCode();
+    result = 31 * result + parentPhoneNumber.hashCode();
     result = 31 * result + (uid != null ? uid.hashCode() : 0);
-    result = 31 * result + (advice != null ? advice.hashCode() : 0);
-    result = 31 * result + (dateISO != null ? dateISO.hashCode() : 0);
+    result = 31 * result + advice.hashCode();
+    result = 31 * result + (int) (timestamp ^ (timestamp >>> 32));
     return result;
   }
 }

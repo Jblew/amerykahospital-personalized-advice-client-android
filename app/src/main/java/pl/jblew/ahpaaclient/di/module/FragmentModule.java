@@ -24,9 +24,13 @@ package pl.jblew.ahpaaclient.di.module;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 import pl.jblew.ahpaaclient.ui.advicelist.AdviceListFragment;
+import pl.jblew.ahpaaclient.ui.importadvice.ImportAdviceFragment;
 
 @Module
 public abstract class FragmentModule {
   @ContributesAndroidInjector
   abstract AdviceListFragment contributeAdviceListFragment();
+  
+  @ContributesAndroidInjector
+  abstract ImportAdviceFragment contributeImportAdviceFragment();
 }

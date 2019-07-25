@@ -57,7 +57,7 @@ public class Resource<T> {
   }
 
   public boolean isSuccess() {
-    return status == Status.SUCCESS && data != null;
+    return status == Status.SUCCESS;
   }
 
   public boolean isLoading() {

@@ -29,6 +29,7 @@ import dagger.multibindings.IntoMap;
 import pl.jblew.ahpaaclient.di.ViewModelKey;
 import pl.jblew.ahpaaclient.factory.ViewModelFactory;
 import pl.jblew.ahpaaclient.viewmodel.AdviceListViewModel;
+import pl.jblew.ahpaaclient.viewmodel.ImportAdviceViewModel;
 
 @Module
 public abstract class ViewModelModule {
@@ -49,4 +50,9 @@ public abstract class ViewModelModule {
   @IntoMap
   @ViewModelKey(AdviceListViewModel.class)
   protected abstract ViewModel adviceListViewModel(AdviceListViewModel adviceListViewModel);
+  
+  @Binds
+  @IntoMap
+  @ViewModelKey(ImportAdviceViewModel.class)
+  protected abstract ViewModel importAdviceViewModel(ImportAdviceViewModel importAdviceViewModel);
 }

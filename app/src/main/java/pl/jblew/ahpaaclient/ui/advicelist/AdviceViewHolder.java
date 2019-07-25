@@ -27,20 +27,27 @@ import androidx.recyclerview.widget.RecyclerView;
 import pl.jblew.ahpaaclient.R;
 import pl.jblew.ahpaaclient.data.model.AdviceEntity;
 
+import java.text.DateFormat;
+import java.util.Date;
+
 public class AdviceViewHolder extends RecyclerView.ViewHolder {
-  private final View mView;
+  private final View view;
   private final TextView doctorText;
   private final TextView dateText;
   private final TextView adviceText;
+  
+  private final DateFormat dateFormat;
 
   public AdviceEntity advice;
 
   public AdviceViewHolder(View view) {
     super(view);
-    mView = view;
-    doctorText = (TextView) view.findViewById(R.id.doctor_text);
-    dateText = (TextView) view.findViewById(R.id.date_text);
-    adviceText = (TextView) view.findViewById(R.id.advice_text);
+    this.view = view;
+    doctorText = view.findViewById(R.id.doctor_text);
+    dateText = view.findViewById(R.id.date_text);
+    adviceText = view.findViewById(R.id.advice_text);
+  
+    dateFormat = android.text.format.DateFormat.getDateFormat(view.getContext());
   }
 
   @Override
@@ -50,7 +57,7 @@ public class AdviceViewHolder extends RecyclerView.ViewHolder {
 
   public void bindTo(AdviceEntity item) {
     doctorText.setText(item.medicalprofessionalName);
-    dateText.setText(item.dateISO);
+    dateText.setText(dateFormat.format(item.getDate()));
     adviceText.setText(item.advice);
   }
 }

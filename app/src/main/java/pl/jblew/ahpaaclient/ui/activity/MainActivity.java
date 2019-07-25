@@ -79,6 +79,10 @@ public class MainActivity extends DaggerAppCompatActivity
     ft.replace(R.id.ac_main_content_frame, nextFragment);
     ft.commit();
   }
+  
+  public void openAdviceList() {
+    changeFragment(new AdviceListFragment());
+  }
 
   @Override
   public void onBackPressed() {

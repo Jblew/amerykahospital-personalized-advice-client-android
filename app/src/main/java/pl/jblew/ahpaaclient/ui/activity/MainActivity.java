@@ -58,6 +58,8 @@ public class MainActivity extends DaggerAppCompatActivity
   
   @Inject
   public DynamicLinkAdapter dynamicLinkAdapter;
+  
+  private Fragment fragment = null;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +94,7 @@ public class MainActivity extends DaggerAppCompatActivity
     FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
     ft.replace(R.id.ac_main_content_frame, nextFragment);
     ft.commit();
+    this.fragment = nextFragment;
   }
   
   public void openAdviceList() {
@@ -126,7 +129,10 @@ public class MainActivity extends DaggerAppCompatActivity
     if (drawer.isDrawerOpen(GravityCompat.START)) {
       drawer.closeDrawer(GravityCompat.START);
     } else {
-      super.onBackPressed();
+      if (!(fragment instanceof AdviceListFragment)) {
+        changeFragment(new AdviceListFragment());
+      }
+      else super.onBackPressed();
     }
   }
 

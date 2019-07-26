@@ -171,6 +171,7 @@ public class LaunchActivity extends AppCompatActivity {
 
   private void goToMainActivity(FirebaseUser user) {
     startActivity(MainActivity.createSignedInIntent(this, user));
+    finish();
   }
 
   public static Intent createSingOutIntent(MainActivity mainActivity) {

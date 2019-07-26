@@ -1,6 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/nav_graph">
-
+            xmlns:tools="http://schemas.android.com/tools" android:id="@+id/nav_graph"
+            app:startDestination="@id/adviceListFragment3">
+    <fragment android:id="@+id/adviceListFragment3" android:name="pl.jblew.ahpaaclient.ui.advicelist.AdviceListFragment"
+              android:label="fragment_advice_list" tools:layout="@layout/fragment_advice_list">
+        <action android:id="@+id/action_adviceListFragment3_to_aboutAppFragment"
+                app:destination="@id/aboutAppFragment"/>
+        <action android:id="@+id/action_adviceListFragment3_to_aboutHospitalFragment"
+                app:destination="@id/aboutHospitalFragment"/>
+        <action android:id="@+id/action_adviceListFragment3_to_importAdviceFragment"
+                app:destination="@id/importAdviceFragment"/>
+    </fragment>
+    <fragment android:id="@+id/aboutAppFragment" android:name="pl.jblew.ahpaaclient.ui.about.AboutAppFragment"
+              android:label="fragment_about_app" tools:layout="@layout/fragment_about_app"/>
+    <fragment android:id="@+id/aboutHospitalFragment" android:name="pl.jblew.ahpaaclient.ui.about.AboutHospitalFragment"
+              android:label="fragment_about_hospital" tools:layout="@layout/fragment_about_hospital"/>
+    <fragment android:id="@+id/importAdviceFragment"
+              android:name="pl.jblew.ahpaaclient.ui.importadvice.ImportAdviceFragment"
+              android:label="fragment_import_advice" tools:layout="@layout/fragment_import_advice">
+        <argument
+                android:name="importSpecificAdviceId"
+                app:nullable="true"
+                app:argType="string" />
+        <action android:id="@+id/action_importAdviceFragment_to_adviceListFragment3"
+                app:destination="@id/adviceListFragment3"/>
+    </fragment>
 </navigation>

@@ -34,6 +34,7 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.Navigation;
 import dagger.android.support.DaggerFragment;
 import pl.jblew.ahpaaclient.R;
 import pl.jblew.ahpaaclient.data.Resource;
@@ -142,7 +143,8 @@ public class ImportAdviceFragment extends DaggerFragment {
     statusText.setTextColor(Color.BLACK);
   
   
-    ((MainActivity) getActivity()).openAdviceList();
+    Navigation.findNavController(getView()).navigate(R.id.action_importAdviceFragment_to_adviceListFragment3);
+  
   }
   
   private void adviceImportError(String error) {

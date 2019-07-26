@@ -32,6 +32,8 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
@@ -64,9 +66,12 @@ public class MainActivity extends DaggerAppCompatActivity
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
-    processDynamicDeepLinks();
     drawView();
-    changeFragment(new AdviceListFragment());
+  
+    NavHostFragment host = NavHostFragment.create(R.navigation.nav_graph);
+    getSupportFragmentManager().beginTransaction().replace(R.id.ac_main_content_frame, host).setPrimaryNavigationFragment(host).commit();
+  
+    processDynamicDeepLinks();
   }
 
   private void drawView() {
@@ -88,15 +93,11 @@ public class MainActivity extends DaggerAppCompatActivity
     navigationView.setNavigationItemSelectedListener(this);
   }
 
-  private void changeFragment(Fragment nextFragment) {
+ /* private void changeFragment(Fragment nextFragment) {
     FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
     ft.replace(R.id.ac_main_content_frame, nextFragment);
     ft.commit();
-  }
-  
-  public void openAdviceList() {
-    changeFragment(new AdviceListFragment());
-  }
+  }*/
   
   private void processDynamicDeepLinks() {
     dynamicLinkAdapter.processDynamicDeepLink(this, getIntent(), (res) ->{
@@ -113,7 +114,9 @@ public class MainActivity extends DaggerAppCompatActivity
   }
   
   private void importAdviceWithinFragment(String adviceId) {
-    changeFragment(ImportAdviceFragment.importAdviceOnStartup(adviceId));
+    Bundle bundle = new Bundle();
+    bundle.putString("importSpecificAdviceId", adviceId);
+    Navigation.findNavController(findViewById(R.id.ac_main_content_frame)).navigate(R.id.action_adviceListFragment3_to_importAdviceFragment, bundle);
   }
   
   private void showDeepLinkError(String message) {
@@ -140,6 +143,8 @@ public class MainActivity extends DaggerAppCompatActivity
       startActivity(LaunchActivity.createSingOutIntent(this));
       finish();
     } else if (id == R.id.nav_advices) {
+      Navigation.findNavController(findViewById(R.id.ac_main_content_frame)).navigate(R.id., bundle);
+  
       changeFragment(new AdviceListFragment());
     } else if (id == R.id.nav_import_advice) {
       changeFragment(new ImportAdviceFragment());

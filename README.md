@@ -8,9 +8,11 @@ Zapraszamy na stronę internetową: https://aplikacja.ameryka.com.pl
 
 
 
-## Autor
+## Autor a operator a osoba zarządzająca danymi osobowymi
 
-Stworzone z ❤️ przez [Jędrzeja Lewandowskiego](https://jedrzej.lewandowski.doctor/).
+- Autorem aplikacji jest [Jędrzej Lewandowski](https://jedrzej.lewandowski.doctor/).
+- Operatorem systemu jest Wojewódzki Szpital Rehabilitacyjny dla Dzieci
+- Za zarządzanie danymi osobowymi odpowiedzialny jest Operator systemu
 
 
 

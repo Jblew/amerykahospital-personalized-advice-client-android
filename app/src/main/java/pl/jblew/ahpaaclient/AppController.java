@@ -24,9 +24,10 @@ package pl.jblew.ahpaaclient;
 import dagger.android.AndroidInjector;
 import dagger.android.DaggerApplication;
 import pl.jblew.ahpaaclient.di.component.DaggerAppComponent;
+import pl.jblew.ahpaaclient.di.util.DaggerMultiDexApplication;
 import timber.log.Timber;
 
-public class AppController extends DaggerApplication {
+public class AppController extends DaggerMultiDexApplication {
   @Override
   protected AndroidInjector<? extends AppController> applicationInjector() {
     return DaggerAppComponent.builder().create(this);

@@ -3,13 +3,13 @@ package pl.jblew.ahpaaclient.adapter;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
-import android.util.Log;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import pl.jblew.ahpaaclient.data.Resource;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.util.List;
+import timber.log.Timber;
 
 @Singleton
 public class DynamicLinkAdapter {
@@ -40,7 +40,7 @@ public class DynamicLinkAdapter {
       DynamicLinkResult processResult = processUri(uri);
       resListener.resourceChanged(Resource.success(processResult));
     } catch (Exception e) {
-      Log.e(TAG, "Error while handling deep link uri (" + uri + "): " + e.getMessage());
+      Timber.tag(TAG).e(e,  "Error while handling deep link uri (" + uri + "): " + e.getMessage());
       resListener.resourceChanged(Resource.error(e.getMessage(), null));
     }
   }

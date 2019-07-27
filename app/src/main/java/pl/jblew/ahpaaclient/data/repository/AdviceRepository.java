@@ -21,7 +21,6 @@
 
 package pl.jblew.ahpaaclient.data.repository;
 
-import android.util.Log;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -32,6 +31,7 @@ import javax.inject.Singleton;
 import pl.jblew.ahpaaclient.BackendConfig;
 import pl.jblew.ahpaaclient.data.Resource;
 import pl.jblew.ahpaaclient.data.model.AdviceEntity;
+import timber.log.Timber;
 
 @Singleton
 public class AdviceRepository {
@@ -41,7 +41,7 @@ public class AdviceRepository {
   public AdviceRepository() {}
 
   public void loadAdvicesForUser(FirebaseUser user, Resource.Listener listener) {
-    Log.i(TAG, "Advice reload started");
+    Timber.tag(TAG).i("Advice reload started");
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     listener.resourceChanged(Resource.loading(null));
     db.collection(BackendConfig.FIRESTORE_COLLECTION_ADVICES)
@@ -51,13 +51,13 @@ public class AdviceRepository {
         .addOnCanceledListener(
             () -> {
               listener.resourceChanged(Resource.success(null));
-              Log.i(TAG, "Advice loading calcelled");
+              Timber.tag(TAG).i( "Advice loading calcelled");
             })
         .addOnFailureListener(
             (Exception e) -> {
               listener.resourceChanged(
                   Resource.error("Could not fetch data: " + e.getMessage(), null));
-              Log.e(TAG, "Advice loading error: " + e, e);
+              Timber.tag(TAG).e(e,  "Advice loading error: " + e);
             })
         .addOnSuccessListener(
             (qs) -> {
@@ -68,7 +68,7 @@ public class AdviceRepository {
                           ? "This data was loaded from " + "offline cache"
                           : null);
               listener.resourceChanged(successRes);
-              Log.i(TAG, "Advice loading completed");
+              Timber.tag(TAG).i("Advice loading completed");
             });
   }
 

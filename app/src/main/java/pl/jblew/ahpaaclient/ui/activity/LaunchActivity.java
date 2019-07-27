@@ -23,7 +23,6 @@ package pl.jblew.ahpaaclient.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -37,6 +36,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import java.util.Arrays;
 import pl.jblew.ahpaaclient.R;
+import timber.log.Timber;
 
 public class LaunchActivity extends AppCompatActivity {
   private static String ACTION_SIGN_OUT = LaunchActivity.class.getName() + ".ACTION_SIGN_OUT";
@@ -86,7 +86,6 @@ public class LaunchActivity extends AppCompatActivity {
 
   private void processIntentOrLogin() {
     Intent intent = getIntent();
-    Log.i(TAG, "Processing intent. Action = " + intent.getAction());
 
     if (intent.getAction() == ACTION_SIGN_OUT) {
       performSignOut();
@@ -124,8 +123,6 @@ public class LaunchActivity extends AppCompatActivity {
   }
 
   private void performSignOut() {
-    Log.i(TAG, "Performing sign out");
-
     AuthUI.getInstance()
         .signOut(this)
         .addOnCompleteListener(
@@ -135,7 +132,6 @@ public class LaunchActivity extends AppCompatActivity {
   }
 
   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-    Log.i(TAG, "onActivityResult ");
     super.onActivityResult(requestCode, resultCode, data);
     // RC_SIGN_IN is the request code you passed into startActivityForResult(...) when starting the
     // sign in flow.
@@ -164,7 +160,7 @@ public class LaunchActivity extends AppCompatActivity {
         }
 
         showMsg(R.string.unknown_error);
-        Log.e(TAG, "Sign-in error: ", response.getError());
+        Timber.tag(TAG).e(response.getError(), "Sign-in error: ");
       }
     }
   }

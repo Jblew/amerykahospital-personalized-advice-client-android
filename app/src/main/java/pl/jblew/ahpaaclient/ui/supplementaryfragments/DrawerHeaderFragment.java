@@ -64,7 +64,6 @@ public class DrawerHeaderFragment extends Fragment {
       userEmailText.setText(user.getEmail());
 
       Uri profilePhotoUri = user.getPhotoUrl();
-      Log.i(TAG, "profilePhoto: " + profilePhotoUri);
       if (profilePhotoUri != null) {
         Picasso.get()
             .load(profilePhotoUri)

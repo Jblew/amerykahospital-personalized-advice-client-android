@@ -1,6 +1,6 @@
 package pl.jblew.ahpaaclient.adapter;
 
-import android.util.Log;
+import timber.log.Timber;
 import com.google.firebase.functions.FirebaseFunctions;
 import pl.jblew.ahpaaclient.data.Resource;
 
@@ -31,20 +31,19 @@ public class ImportAdviceToUserFunctionAdapter {
         .addOnCanceledListener(
             () -> {
               listener.resourceChanged(Resource.error("Advice import cancelled", null));
-              Log.i(TAG, "Advice importing cancelled");
+              Timber.tag(TAG).w("Advice importing cancelled");
             })
         .addOnFailureListener(
             (Exception e) -> {
               listener.resourceChanged(
                   Resource.error("Could not import advice: " + e.getMessage(), null));
-              Log.e(TAG, "Advice importing error: " + e, e);
+              Timber.tag(TAG).e(e, "Advice importing error: " + e);
             })
         .addOnSuccessListener(
             (qs) -> {
               Resource successRes =
                   Resource.success(null);
               listener.resourceChanged(successRes);
-              Log.i(TAG, "Advice loading completed");
             });
     
   }

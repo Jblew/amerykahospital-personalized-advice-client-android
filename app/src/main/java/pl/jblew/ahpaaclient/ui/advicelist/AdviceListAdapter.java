@@ -31,6 +31,7 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 import pl.jblew.ahpaaclient.R;
 import pl.jblew.ahpaaclient.data.model.AdviceEntity;
+import timber.log.Timber;
 
 public class AdviceListAdapter extends ListAdapter<AdviceEntity, RecyclerView.ViewHolder> {
   private static final String TAG = "AdviceListAdapter";
@@ -62,7 +63,7 @@ public class AdviceListAdapter extends ListAdapter<AdviceEntity, RecyclerView.Vi
     } else if (holder instanceof EmptylistViewHolder) {
       // it does not require binding
     } else {
-      Log.e(TAG, "Unknown view holder: " + holder);
+      Timber.tag(TAG).e("Unknown view holder: " + holder);
     }
   }
 

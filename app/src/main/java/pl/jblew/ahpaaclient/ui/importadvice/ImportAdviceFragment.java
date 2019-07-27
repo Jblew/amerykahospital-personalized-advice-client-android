@@ -102,7 +102,6 @@ public class ImportAdviceFragment extends DaggerFragment {
   
   private void importAdvice(String adviceId) {
     adviceCodeInput.setText(adviceId);
-    Log.i(TAG, "ImportAdviceFragment.imortAdvice " + adviceId);
     fireAdviceImport();
   }
   

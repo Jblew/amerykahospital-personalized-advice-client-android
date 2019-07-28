@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:orientation="vertical" android:layout_width="match_parent"
 	android:layout_height="wrap_content"
@@ -11,7 +12,7 @@
 	<ImageView android:layout_width="match_parent"
 		android:layout_height="wrap_content" android:minWidth="48dp"
 		android:minHeight="48dp"
-		android:src="@drawable/ic_subtitles_grey_800_48dp"
+		app:srcCompat="@drawable/ic_subtitles_grey_800_48dp"
 		android:paddingTop="120dp" />
 
 	<TextView android:layout_width="match_parent"

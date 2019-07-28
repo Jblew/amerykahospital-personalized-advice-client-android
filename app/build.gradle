@@ -7,12 +7,13 @@ android {
         applicationId "pl.com.ameryka.aplikacja"
         minSdkVersion 17
         targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         resConfigs "pl"
         vectorDrawables.useSupportLibrary = true
+        versionCode 110001
+        versionName "1.0.1"
+        setProperty("archivesBaseName", "amerykaszpital-porady-$versionName")
     }
 
     buildTypes {

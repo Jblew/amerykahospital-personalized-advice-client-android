@@ -22,11 +22,13 @@
 package pl.jblew.ahpaaclient.data.model;
 
 import android.text.format.DateFormat;
+import androidx.annotation.Keep;
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+@Keep
 public class AdviceEntity {
   public String id;
   public String patientName;

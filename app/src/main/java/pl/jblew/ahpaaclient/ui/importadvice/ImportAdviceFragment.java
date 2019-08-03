@@ -35,6 +35,7 @@ import androidx.lifecycle.ViewModelProviders;
 import dagger.android.support.DaggerFragment;
 import javax.inject.Inject;
 import pl.jblew.ahpaaclient.R;
+import pl.jblew.ahpaaclient.data.AdviceToImportHolder;
 import pl.jblew.ahpaaclient.data.Resource;
 import pl.jblew.ahpaaclient.factory.ViewModelFactory;
 import pl.jblew.ahpaaclient.ui.activity.MainActivity;
@@ -114,20 +115,29 @@ public class ImportAdviceFragment extends DaggerFragment {
   }
 
   private void doImportAdvice(String adviceId) {
-    MutableLiveData<Resource<Object>> importState =
-        this.importAdviceViewModel.importAdvice(adviceId);
+    MutableLiveData<Resource<Object>> importState = this.importAdviceViewModel.importAdvice(adviceId);
+    
     importState.observe(
         this,
         res -> {
+          removeAdviceWaitingToImportIfIdMatches(adviceId);
           if (res.isError()) {
             adviceImportError(res.message);
           } else if (res.isSuccess()) {
-            adviceImportFinished();
+            adviceImportSuccess();
           }
         });
   }
 
-  private void adviceImportFinished() {
+  
+  private void removeAdviceWaitingToImportIfIdMatches(String adviceId) {
+    String adviceToImport = AdviceToImportHolder.getAdviceIdOrNull(getActivity());
+    if (adviceToImport != null && adviceToImport.equals(adviceId)) {
+      AdviceToImportHolder.clearAdviceId(getActivity());
+    }
+  }
+
+  private void adviceImportSuccess() {
     importButton.setEnabled(true);
     adviceCodeInput.setEnabled(true);
     adviceCodeInput.setText("");

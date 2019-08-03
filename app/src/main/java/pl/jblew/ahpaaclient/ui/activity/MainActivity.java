@@ -31,13 +31,13 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseUser;
 import dagger.android.support.DaggerAppCompatActivity;
 import dagger.android.support.HasSupportFragmentInjector;
 import javax.inject.Inject;
 import pl.jblew.ahpaaclient.R;
 import pl.jblew.ahpaaclient.adapter.DynamicLinkAdapter;
+import pl.jblew.ahpaaclient.data.AdviceToImportHolder;
 import pl.jblew.ahpaaclient.data.model.AdviceEntity;
 import pl.jblew.ahpaaclient.ui.about.AboutAppFragment;
 import pl.jblew.ahpaaclient.ui.about.AboutHospitalFragment;
@@ -48,19 +48,17 @@ public class MainActivity extends DaggerAppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener,
         HasSupportFragmentInjector,
         AdviceListFragment.OnListFragmentInteractionListener {
-
-  @Inject public DynamicLinkAdapter dynamicLinkAdapter;
-
+  
   private Fragment fragment = null;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
-
-    processDynamicDeepLinks();
+  
     drawView();
-    changeFragment(new AdviceListFragment());
+    boolean thereIsAdviceToImport = processAdviceToImport();
+    if(!thereIsAdviceToImport) changeFragment(new AdviceListFragment());
   }
 
   private void drawView() {
@@ -92,33 +90,18 @@ public class MainActivity extends DaggerAppCompatActivity
   public void openAdviceList() {
     changeFragment(new AdviceListFragment());
   }
-
-  private void processDynamicDeepLinks() {
-    dynamicLinkAdapter.processDynamicDeepLink(
-        this,
-        getIntent(),
-        (res) -> {
-          if (res.isSuccess()) handleDeepLink(res.data);
-          else showDeepLinkError(res.message);
-        });
+  
+  private boolean processAdviceToImport() {
+    String adviceToImport = AdviceToImportHolder.getAdviceIdOrNull(this);
+    if (adviceToImport != null) {
+      this.importAdviceWithinFragment(adviceToImport);
+      return true;
+    }
+    return false;
   }
-
-  private void handleDeepLink(DynamicLinkAdapter.DynamicLinkResult dynamicLinkResult) {
-    if (dynamicLinkResult instanceof DynamicLinkAdapter.AdviceIdDynamicLink) {
-      importAdviceWithinFragment(
-          ((DynamicLinkAdapter.AdviceIdDynamicLink) dynamicLinkResult).adviceId);
-    } else showDeepLinkError("Unrecognized type of dynamic link");
-  }
-
+  
   private void importAdviceWithinFragment(String adviceId) {
     changeFragment(ImportAdviceFragment.importAdviceOnStartup(adviceId));
-  }
-
-  private void showDeepLinkError(String message) {
-    Snackbar.make(
-        findViewById(R.id.nav_view),
-        "Could not handle deep link: " + message,
-        Snackbar.LENGTH_LONG);
   }
 
   @Override

@@ -63,4 +63,5 @@
 	</string>
 	<string name="loading">Ładowanie...</string>
 	<string name="bullet_separator">•</string>
+    <string name="sharedstorage_key_advice_to_be_imported">advice_to_be_imported</string>
 </resources>

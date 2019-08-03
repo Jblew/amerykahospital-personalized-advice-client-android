@@ -35,10 +35,16 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import java.util.Arrays;
+
+import dagger.android.support.DaggerAppCompatActivity;
 import pl.jblew.ahpaaclient.R;
+import pl.jblew.ahpaaclient.adapter.DynamicLinkAdapter;
+import pl.jblew.ahpaaclient.data.AdviceToImportHolder;
 import timber.log.Timber;
 
-public class LaunchActivity extends AppCompatActivity {
+import javax.inject.Inject;
+
+public class LaunchActivity  extends DaggerAppCompatActivity {
   private static String ACTION_SIGN_OUT = LaunchActivity.class.getName() + ".ACTION_SIGN_OUT";
   private static final String TAG = "LaunchActivity";
   private static final int RC_SIGN_IN = 9410;
@@ -46,7 +52,13 @@ public class LaunchActivity extends AppCompatActivity {
   private View rootLayout;
   private TextView msgText;
   private Button loginBtn;
-
+  
+  @Inject
+  public DynamicLinkAdapter dynamicLinkAdapter;
+  
+  @Inject
+  public LaunchActivity() {}
+  
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -55,6 +67,7 @@ public class LaunchActivity extends AppCompatActivity {
     findViewItems();
     createView();
 
+    processDynamicDeepLinks();
     processIntentOrLogin();
   }
 
@@ -70,18 +83,31 @@ public class LaunchActivity extends AppCompatActivity {
     msgText = findViewById(R.id.ac_launch_msg_text);
     loginBtn = findViewById(R.id.ac_launch_login_btn);
   }
-
-  private void goToLoginActivity() {
-    startActivityForResult(
-        // Get an instance of AuthUI based on the default app
-        AuthUI.getInstance()
-            .createSignInIntentBuilder()
-            .setAvailableProviders(
-                Arrays.asList(
-                    new AuthUI.IdpConfig.GoogleBuilder().build(),
-                    new AuthUI.IdpConfig.EmailBuilder().build()))
-            .build(),
-        RC_SIGN_IN);
+  
+  private void processDynamicDeepLinks() {
+    dynamicLinkAdapter.processDynamicDeepLink(
+        this,
+        getIntent(),
+        (res) -> {
+          if (res.isSuccess()) handleDeepLink(res.data);
+          else showDeepLinkError(res.message);
+        });
+  }
+  
+  public void handleDeepLink(DynamicLinkAdapter.DynamicLinkResult dynamicLinkResult) {
+    if (dynamicLinkResult instanceof DynamicLinkAdapter.AdviceIdDynamicLink) {
+      
+      String adviceId = ((DynamicLinkAdapter.AdviceIdDynamicLink) dynamicLinkResult).adviceId;
+      AdviceToImportHolder.setAdviceId(this, adviceId);
+      
+    } else showDeepLinkError("Unrecognized type of dynamic link");
+  }
+  
+  private void showDeepLinkError(String message) {
+    Timber.tag(TAG).e("Deep link error: " + message);
+    Snackbar.make(rootLayout,
+        "Could not handle deep link: " + message,
+        Snackbar.LENGTH_LONG);
   }
 
   private void processIntentOrLogin() {
@@ -120,6 +146,19 @@ public class LaunchActivity extends AppCompatActivity {
   private void showMsg(int stringId) {
     msgText.setText(stringId);
     Snackbar.make(rootLayout, stringId, Snackbar.LENGTH_LONG).show();
+  }
+  
+  private void goToLoginActivity() {
+    startActivityForResult(
+        // Get an instance of AuthUI based on the default app
+        AuthUI.getInstance()
+            .createSignInIntentBuilder()
+            .setAvailableProviders(
+                Arrays.asList(
+                    new AuthUI.IdpConfig.GoogleBuilder().build(),
+                    new AuthUI.IdpConfig.EmailBuilder().build()))
+            .build(),
+        RC_SIGN_IN);
   }
 
   private void performSignOut() {

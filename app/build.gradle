@@ -11,8 +11,8 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         resConfigs "pl"
         vectorDrawables.useSupportLibrary = true
-        versionCode 110002
-        versionName "1.0.2"
+        versionCode 110003
+        versionName "1.0.3"
         setProperty("archivesBaseName", "amerykaszpital-porady-$versionName")
     }
 

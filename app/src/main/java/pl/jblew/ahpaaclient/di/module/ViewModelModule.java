@@ -50,7 +50,7 @@ public abstract class ViewModelModule {
   @IntoMap
   @ViewModelKey(AdviceListViewModel.class)
   protected abstract ViewModel adviceListViewModel(AdviceListViewModel adviceListViewModel);
-  
+
   @Binds
   @IntoMap
   @ViewModelKey(ImportAdviceViewModel.class)

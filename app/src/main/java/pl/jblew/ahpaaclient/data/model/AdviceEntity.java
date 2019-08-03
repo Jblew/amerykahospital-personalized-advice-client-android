@@ -21,12 +21,8 @@
 
 package pl.jblew.ahpaaclient.data.model;
 
-import android.text.format.DateFormat;
 import androidx.annotation.Keep;
-
-import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 
 @Keep
 public class AdviceEntity {
@@ -37,18 +33,18 @@ public class AdviceEntity {
   public String uid;
   public String advice;
   public long timestamp;
-  
+
   public Date getDate() {
     return new Date(this.timestamp * 1000L);
   }
-  
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    
+
     AdviceEntity that = (AdviceEntity) o;
-    
+
     if (timestamp != that.timestamp) return false;
     if (!id.equals(that.id)) return false;
     if (!patientName.equals(that.patientName)) return false;
@@ -57,7 +53,7 @@ public class AdviceEntity {
     if (uid != null ? !uid.equals(that.uid) : that.uid != null) return false;
     return advice.equals(that.advice);
   }
-  
+
   @Override
   public int hashCode() {
     int result = id.hashCode();

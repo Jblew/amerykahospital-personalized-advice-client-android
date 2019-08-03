@@ -30,7 +30,7 @@ import pl.jblew.ahpaaclient.ui.importadvice.ImportAdviceFragment;
 public abstract class FragmentModule {
   @ContributesAndroidInjector
   abstract AdviceListFragment contributeAdviceListFragment();
-  
+
   @ContributesAndroidInjector
   abstract ImportAdviceFragment contributeImportAdviceFragment();
 }

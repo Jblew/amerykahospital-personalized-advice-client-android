@@ -51,13 +51,13 @@ public class AdviceRepository {
         .addOnCanceledListener(
             () -> {
               listener.resourceChanged(Resource.success(null));
-              Timber.tag(TAG).i( "Advice loading calcelled");
+              Timber.tag(TAG).i("Advice loading calcelled");
             })
         .addOnFailureListener(
             (Exception e) -> {
               listener.resourceChanged(
                   Resource.error("Could not fetch data: " + e.getMessage(), null));
-              Timber.tag(TAG).e(e,  "Advice loading error: " + e);
+              Timber.tag(TAG).e(e, "Advice loading error: " + e);
             })
         .addOnSuccessListener(
             (qs) -> {

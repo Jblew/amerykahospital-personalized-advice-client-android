@@ -7,9 +7,9 @@
 	tools:context=".ui.about.AboutAppFragment">
 
 
-		<com.mukesh.MarkdownView
-			android:id="@+id/about_app_markdown_view"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent" />
+	<com.mukesh.MarkdownView
+		android:id="@+id/about_app_markdown_view"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent" />
 
 </FrameLayout>

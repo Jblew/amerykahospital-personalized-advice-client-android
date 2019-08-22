@@ -26,7 +26,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import androidx.appcompat.app.AppCompatActivity;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.IdpResponse;
@@ -126,7 +125,7 @@ public class LaunchActivity  extends DaggerAppCompatActivity {
     FirebaseUser user = auth.getCurrentUser();
     if (user != null) {
       showLoggedInUi(user);
-      goToMainActivity(user);
+      goToRootActivity(user);
     } else {
       showNotLoggedInUi();
       goToLoginActivity();
@@ -181,7 +180,7 @@ public class LaunchActivity  extends DaggerAppCompatActivity {
       if (resultCode == RESULT_OK) {
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         showLoggedInUi(currentUser);
-        goToMainActivity(currentUser);
+        goToRootActivity(currentUser);
         finish();
       } else {
         showNotLoggedInUi();
@@ -204,13 +203,13 @@ public class LaunchActivity  extends DaggerAppCompatActivity {
     }
   }
 
-  private void goToMainActivity(FirebaseUser user) {
-    startActivity(MainActivity.createSignedInIntent(this, user));
+  private void goToRootActivity(FirebaseUser user) {
+    startActivity(RootActivity.createSignedInIntent(this, user));
     finish();
   }
 
-  public static Intent createSingOutIntent(MainActivity mainActivity) {
-    Intent intent = new Intent(mainActivity, LaunchActivity.class);
+  public static Intent createSingOutIntent(RootActivity rootActivity) {
+    Intent intent = new Intent(rootActivity, LaunchActivity.class);
     intent.setAction(ACTION_SIGN_OUT);
     return intent;
   }

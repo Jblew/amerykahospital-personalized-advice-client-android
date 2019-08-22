@@ -38,7 +38,7 @@ import pl.jblew.ahpaaclient.R;
 import pl.jblew.ahpaaclient.data.AdviceToImportHolder;
 import pl.jblew.ahpaaclient.data.Resource;
 import pl.jblew.ahpaaclient.factory.ViewModelFactory;
-import pl.jblew.ahpaaclient.ui.activity.MainActivity;
+import pl.jblew.ahpaaclient.ui.activity.RootActivity;
 import pl.jblew.ahpaaclient.viewmodel.ImportAdviceViewModel;
 
 public class ImportAdviceFragment extends DaggerFragment {
@@ -147,7 +147,7 @@ public class ImportAdviceFragment extends DaggerFragment {
     statusText.setText("");
     statusText.setTextColor(Color.BLACK);
 
-    ((MainActivity) getActivity()).openAdviceList();
+    ((RootActivity) getActivity()).openAdviceList();
   }
 
   private void adviceImportError(String error) {

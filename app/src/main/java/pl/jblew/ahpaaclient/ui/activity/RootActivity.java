@@ -34,9 +34,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseUser;
 import dagger.android.support.DaggerAppCompatActivity;
 import dagger.android.support.HasSupportFragmentInjector;
-import javax.inject.Inject;
 import pl.jblew.ahpaaclient.R;
-import pl.jblew.ahpaaclient.adapter.DynamicLinkAdapter;
 import pl.jblew.ahpaaclient.data.AdviceToImportHolder;
 import pl.jblew.ahpaaclient.data.model.AdviceEntity;
 import pl.jblew.ahpaaclient.ui.about.AboutAppFragment;
@@ -44,7 +42,7 @@ import pl.jblew.ahpaaclient.ui.about.AboutHospitalFragment;
 import pl.jblew.ahpaaclient.ui.advicelist.AdviceListFragment;
 import pl.jblew.ahpaaclient.ui.importadvice.ImportAdviceFragment;
 
-public class MainActivity extends DaggerAppCompatActivity
+public class RootActivity extends DaggerAppCompatActivity
     implements NavigationView.OnNavigationItemSelectedListener,
         HasSupportFragmentInjector,
         AdviceListFragment.OnListFragmentInteractionListener {
@@ -54,7 +52,7 @@ public class MainActivity extends DaggerAppCompatActivity
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);
+    setContentView(R.layout.activity_root);
   
     drawView();
     boolean thereIsAdviceToImport = processAdviceToImport();
@@ -144,7 +142,7 @@ public class MainActivity extends DaggerAppCompatActivity
   public void onListFragmentInteraction(AdviceEntity item) {}
 
   public static Intent createSignedInIntent(LaunchActivity launchActivity, FirebaseUser user) {
-    Intent intent = new Intent(launchActivity, MainActivity.class);
+    Intent intent = new Intent(launchActivity, RootActivity.class);
     return intent;
   }
 }

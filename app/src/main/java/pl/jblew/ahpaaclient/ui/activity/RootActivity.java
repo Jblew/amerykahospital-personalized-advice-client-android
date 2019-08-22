@@ -121,7 +121,7 @@ public class RootActivity extends DaggerAppCompatActivity
     int id = item.getItemId();
 
     if (id == R.id.nav_logout) {
-      startActivity(LaunchActivity.createSingOutIntent(this));
+      startActivity(MainActivity.createSingOutIntent(this));
       finish();
     } else if (id == R.id.nav_advices) {
       changeFragment(new AdviceListFragment());
@@ -141,8 +141,8 @@ public class RootActivity extends DaggerAppCompatActivity
   @Override
   public void onListFragmentInteraction(AdviceEntity item) {}
 
-  public static Intent createSignedInIntent(LaunchActivity launchActivity, FirebaseUser user) {
-    Intent intent = new Intent(launchActivity, RootActivity.class);
+  public static Intent createSignedInIntent(MainActivity mainActivity, FirebaseUser user) {
+    Intent intent = new Intent(mainActivity, RootActivity.class);
     return intent;
   }
 }

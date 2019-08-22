@@ -43,9 +43,9 @@ import timber.log.Timber;
 
 import javax.inject.Inject;
 
-public class LaunchActivity  extends DaggerAppCompatActivity {
-  private static String ACTION_SIGN_OUT = LaunchActivity.class.getName() + ".ACTION_SIGN_OUT";
-  private static final String TAG = "LaunchActivity";
+public class MainActivity extends DaggerAppCompatActivity {
+  private static String ACTION_SIGN_OUT = MainActivity.class.getName() + ".ACTION_SIGN_OUT";
+  private static final String TAG = "MainActivity";
   private static final int RC_SIGN_IN = 9410;
 
   private View rootLayout;
@@ -56,13 +56,13 @@ public class LaunchActivity  extends DaggerAppCompatActivity {
   public DynamicLinkAdapter dynamicLinkAdapter;
   
   @Inject
-  public LaunchActivity() {}
+  public MainActivity() {}
   
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setTheme(R.style.AppTheme);
-    setContentView(R.layout.activity_launch);
+    setContentView(R.layout.activity_main);
     findViewItems();
     createView();
 
@@ -78,9 +78,9 @@ public class LaunchActivity  extends DaggerAppCompatActivity {
   }
 
   private void findViewItems() {
-    rootLayout = findViewById(R.id.ac_launch_root_layout);
-    msgText = findViewById(R.id.ac_launch_msg_text);
-    loginBtn = findViewById(R.id.ac_launch_login_btn);
+    rootLayout = findViewById(R.id.ac_main_root_layout);
+    msgText = findViewById(R.id.ac_main_msg_text);
+    loginBtn = findViewById(R.id.ac_main_login_btn);
   }
   
   private void processDynamicDeepLinks() {
@@ -209,7 +209,7 @@ public class LaunchActivity  extends DaggerAppCompatActivity {
   }
 
   public static Intent createSingOutIntent(RootActivity rootActivity) {
-    Intent intent = new Intent(rootActivity, LaunchActivity.class);
+    Intent intent = new Intent(rootActivity, MainActivity.class);
     intent.setAction(ACTION_SIGN_OUT);
     return intent;
   }

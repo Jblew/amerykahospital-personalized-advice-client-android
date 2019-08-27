@@ -64,4 +64,8 @@
 	<string name="loading">Ładowanie...</string>
 	<string name="bullet_separator">•</string>
     <string name="sharedstorage_key_advice_to_be_imported">advice_to_be_imported</string>
+	<string name="advice_import_instructions">
+		Aby importować poradę kliknij w link, który dostałeś w wiadomości SMS.
+		(w razie problemów przepisz kod z wiadomości SMS do panelu \"Importuj poradę\" lub skontaktuj się ze szpitalem.
+	</string>
 </resources>

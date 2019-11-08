@@ -35,6 +35,7 @@ import dagger.android.support.DaggerFragment;
 import java.util.List;
 import javax.inject.Inject;
 import pl.jblew.ahpaaclient.R;
+import pl.jblew.ahpaaclient.adapter.ThankFunctionAdapter;
 import pl.jblew.ahpaaclient.data.Resource;
 import pl.jblew.ahpaaclient.data.model.AdviceEntity;
 import pl.jblew.ahpaaclient.factory.ViewModelFactory;
@@ -45,6 +46,7 @@ public class AdviceListFragment extends DaggerFragment
   private static String TAG = "AdviceListFragment";
 
   @Inject public ViewModelFactory vmFactory;
+  @Inject public ThankFunctionAdapter thankFunctionAdapter;
 
   private OnListFragmentInteractionListener mListener;
   private AdviceListViewModel adviceListViewModel;
@@ -77,7 +79,7 @@ public class AdviceListFragment extends DaggerFragment
         };
     recyclerView.setLayoutManager(layoutManager);
 
-    AdviceListAdapter adapter = new AdviceListAdapter();
+    AdviceListAdapter adapter = new AdviceListAdapter(thankFunctionAdapter);
     adviceListViewModel
         .getAdvices()
         .observe(this, listRes -> onAdviceListChanged(view, adapter, listRes));

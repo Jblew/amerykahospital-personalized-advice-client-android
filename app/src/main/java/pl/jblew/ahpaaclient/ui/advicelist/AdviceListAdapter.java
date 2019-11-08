@@ -29,11 +29,13 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 import pl.jblew.ahpaaclient.R;
+import pl.jblew.ahpaaclient.adapter.ThankFunctionAdapter;
 import pl.jblew.ahpaaclient.data.model.AdviceEntity;
 import timber.log.Timber;
 
 public class AdviceListAdapter extends ListAdapter<AdviceEntity, RecyclerView.ViewHolder> {
   private static final String TAG = "AdviceListAdapter";
+  private final ThankFunctionAdapter thankFunctionAdapter;
 
   public static final DiffUtil.ItemCallback<AdviceEntity> DIFF_CALLBACK =
       new DiffUtil.ItemCallback<AdviceEntity>() {
@@ -49,8 +51,9 @@ public class AdviceListAdapter extends ListAdapter<AdviceEntity, RecyclerView.Vi
         }
       };
 
-  public AdviceListAdapter() {
+  public AdviceListAdapter(ThankFunctionAdapter thankFunctionAdapter) {
     super(DIFF_CALLBACK);
+    this.thankFunctionAdapter = thankFunctionAdapter;
   }
 
   @Override
@@ -88,7 +91,7 @@ public class AdviceListAdapter extends ListAdapter<AdviceEntity, RecyclerView.Vi
     View view =
         LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_advice, parent, false);
 
-    return new AdviceViewHolder(view);
+    return new AdviceViewHolder(view, thankFunctionAdapter);
   }
 
   @Override

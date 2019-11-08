@@ -22,28 +22,38 @@
 package pl.jblew.ahpaaclient.ui.advicelist;
 
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.snackbar.Snackbar;
+
 import java.text.DateFormat;
 import pl.jblew.ahpaaclient.R;
+import pl.jblew.ahpaaclient.adapter.ThankFunctionAdapter;
 import pl.jblew.ahpaaclient.data.model.AdviceEntity;
 
 public class AdviceViewHolder extends RecyclerView.ViewHolder {
+  private final ThankFunctionAdapter thankFunctionAdapter;
+  
   private final View view;
   private final TextView doctorText;
   private final TextView datePatientText;
   private final TextView adviceText;
+  private final Button thankButton;
 
   private final DateFormat dateFormat;
 
   public AdviceEntity advice;
 
-  public AdviceViewHolder(View view) {
+  public AdviceViewHolder(View view, ThankFunctionAdapter thankFunctionAdapter) {
     super(view);
+    this.thankFunctionAdapter = thankFunctionAdapter;
     this.view = view;
     doctorText = view.findViewById(R.id.doctor_text);
     datePatientText = view.findViewById(R.id.datePatient_text);
     adviceText = view.findViewById(R.id.advice_text);
+    thankButton = view.findViewById((R.id.thankButton));
 
     dateFormat = android.text.format.DateFormat.getDateFormat(view.getContext());
   }
@@ -54,10 +64,28 @@ public class AdviceViewHolder extends RecyclerView.ViewHolder {
   }
 
   public void bindTo(AdviceEntity item) {
+    this.advice = item;
     doctorText.setText(item.medicalprofessionalName);
 
     String datePatientStr = dateFormat.format(item.getDate()) + " • " + item.patientName;
     datePatientText.setText(datePatientStr);
     adviceText.setText(item.advice);
+  
+    thankButton.setText("Podziękuj!");
+    thankButton.setOnClickListener(e -> {
+      thankButton.setEnabled(false);
+      thankFunctionAdapter.thank(advice.id, res -> {
+        thankButton.setEnabled(true);
+  
+        if (res.isSuccess()) {
+          thankButton.setText("Podziękuj! (" + res.data + ")");
+          thankButton.setEnabled(true);
+        }
+        if (res.isError()) {
+          Snackbar.make(view, "Błąd: " + res.message, Snackbar.LENGTH_LONG).show();
+        }
+        if (res.isLoading()) thankButton.setEnabled(false);
+      });
+    });
   }
 }

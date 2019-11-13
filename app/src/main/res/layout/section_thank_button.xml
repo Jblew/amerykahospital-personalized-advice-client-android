@@ -27,6 +27,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawablePadding="10dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintLeft_toRightOf="@+id/thankCount"
@@ -46,7 +48,7 @@
                 android:textSize="11dp"
                 android:textColor="#999"
                 android:text="@string/clickToThank"
-                android:layout_marginBottom="6dp"/>
+                android:layout_marginBottom="4dp"/>
 
     </LinearLayout>
 </LinearLayout>

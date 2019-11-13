@@ -32,6 +32,7 @@ public class AdviceEntity {
   public String parentPhoneNumber;
   public String uid;
   public String advice;
+  public int thanksCount;
   public long timestamp;
 
   public Date getDate() {

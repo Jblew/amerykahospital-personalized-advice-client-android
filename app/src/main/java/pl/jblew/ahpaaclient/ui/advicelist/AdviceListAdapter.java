@@ -91,7 +91,11 @@ public class AdviceListAdapter extends ListAdapter<AdviceEntity, RecyclerView.Vi
     View view =
         LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_advice, parent, false);
 
-    return new AdviceViewHolder(view, thankFunctionAdapter);
+    if (viewType == ViewType.ADVICE_FIRST.ordinal()) {
+      return new AdviceViewHolder(view, thankFunctionAdapter, true);
+    }
+    
+    return new AdviceViewHolder(view, thankFunctionAdapter, false);
   }
 
   @Override
@@ -110,6 +114,10 @@ public class AdviceListAdapter extends ListAdapter<AdviceEntity, RecyclerView.Vi
     if (position == this.getItemCount() - 1) {
       return ViewType.FOOTER.ordinal();
     }
+    
+    if (position == 0) {
+      return ViewType.ADVICE_FIRST.ordinal();
+    }
 
     return ViewType.ADVICE.ordinal();
   }
@@ -117,6 +125,7 @@ public class AdviceListAdapter extends ListAdapter<AdviceEntity, RecyclerView.Vi
   private enum ViewType {
     FOOTER,
     EMPTYLIST,
-    ADVICE
+    ADVICE_FIRST,
+    ADVICE,
   }
 }

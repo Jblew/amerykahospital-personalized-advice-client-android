@@ -35,25 +35,32 @@ import pl.jblew.ahpaaclient.data.model.AdviceEntity;
 
 public class AdviceViewHolder extends RecyclerView.ViewHolder {
   private final ThankFunctionAdapter thankFunctionAdapter;
+  private boolean showIntro = false;
   
   private final View view;
   private final TextView doctorText;
   private final TextView datePatientText;
   private final TextView adviceText;
+  private final Button thankCount;
   private final Button thankButton;
-
+  private final View thankIntro;
+  
   private final DateFormat dateFormat;
 
   public AdviceEntity advice;
 
-  public AdviceViewHolder(View view, ThankFunctionAdapter thankFunctionAdapter) {
+  public AdviceViewHolder(View view, ThankFunctionAdapter thankFunctionAdapter, boolean showIntro) {
     super(view);
     this.thankFunctionAdapter = thankFunctionAdapter;
     this.view = view;
+    this.showIntro = showIntro;
+    
     doctorText = view.findViewById(R.id.doctor_text);
     datePatientText = view.findViewById(R.id.datePatient_text);
     adviceText = view.findViewById(R.id.advice_text);
+    thankCount = view.findViewById((R.id.thankCount));
     thankButton = view.findViewById((R.id.thankButton));
+    thankIntro = view.findViewById((R.id.thankIntro));
 
     dateFormat = android.text.format.DateFormat.getDateFormat(view.getContext());
   }
@@ -70,15 +77,20 @@ public class AdviceViewHolder extends RecyclerView.ViewHolder {
     String datePatientStr = dateFormat.format(item.getDate()) + " • " + item.patientName;
     datePatientText.setText(datePatientStr);
     adviceText.setText(item.advice);
+    
+    int thanksCount = 0;
+    thanksCount = item.thanksCount;
+    thankCount.setText(ThanksCountTextGenerator.getThanksCountText(thanksCount));
   
-    thankButton.setText("Podziękuj!");
+    thankIntro.setVisibility(showIntro ? View.VISIBLE : View.GONE);
+    
     thankButton.setOnClickListener(e -> {
       thankButton.setEnabled(false);
       thankFunctionAdapter.thank(advice.id, res -> {
         thankButton.setEnabled(true);
   
         if (res.isSuccess()) {
-          thankButton.setText("Podziękuj! (" + res.data + ")");
+          thankCount.setText(ThanksCountTextGenerator.getThanksCountText(res.data));
           thankButton.setEnabled(true);
         }
         if (res.isError()) {

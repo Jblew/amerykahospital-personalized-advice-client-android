@@ -68,4 +68,6 @@
 		Aby importować poradę kliknij w link, który dostałeś w wiadomości SMS.
 		(w razie problemów przepisz kod z wiadomości SMS do panelu \"Importuj poradę\" lub skontaktuj się ze szpitalem.
 	</string>
+    <string name="thank_button">Podziękuj za poradę</string>
+    <string name="clickToThank">Kliknij i podziękuj medykowi za każdym razem, kiedy jego porada była przydatna. Specjalista będzie widział ilość podziękowań. Dzięki temu zachęcisz specjalistów do włożenia serca w pisanie porad.</string>
 </resources>

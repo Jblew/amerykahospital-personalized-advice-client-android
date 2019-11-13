@@ -66,7 +66,7 @@ public class ThankFunctionAdapter {
         .addOnSuccessListener(
             (ts) -> {
               Map<String, String> kvs = (Map<String, String>) ts.getData();
-              Resource successRes = Resource.success(kvs.get(RESULT_KEY_ID))8;
+              Resource successRes = Resource.success(kvs.get(RESULT_KEY_ID));
               listener.resourceChanged(successRes);
             });
   }

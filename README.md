@@ -1,3 +1,5 @@
+[![Proudly part of the Person Centred Care initiative](https://personcentred.care/media/badge.svg)](https://personcentred.care/)
+
 # System spersonalizowanych porad Wojewódzkiego Szpitala Rehabilitacyjnego dla Dzieci w Ameryce
 
 Zapraszamy na stronę internetową: https://aplikacja.ameryka.com.pl
